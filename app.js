@@ -10,7 +10,7 @@ dotenv.config({ path: './config/config.env' });
 const app = express();
 
 // Set up NeDB
-const dbPath = path.join(__dirname, 'database.db');
+const dbPath = path.join(__dirname, 'database1.db');
 const db = new Datastore({ filename: dbPath, autoload: true });
 
 // Example: Insert a document into NeDB
