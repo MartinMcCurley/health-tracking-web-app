@@ -2,16 +2,16 @@ Health Tracking Web App
 
 Project Checklist
 Project setup:
- [ ] Initialize a Git repository
- [ ] Set up a Node.js project with a package.json file
- [ ] Create a README file with instructions on how to run the site and a list of implemented features
- [ ] Define project structure and organize folders
+[ ] Initialize a Git repository
+[ ] Set up a Node.js project with a package.json file
+[ ] Create a README file with instructions on how to run the site and a list of implemented features
+[ ] Define project structure and organize folders
 Backend development:
- [ ] Set up Express server
- [ ] Implement user registration and authentication using an appropriate middleware
- [ ] Set up NeDB database to store user information, goals, and achievements
- [ ] Design and implement CRUD operations for goals (add, edit, delete, progress update)
- [ ] Write unit tests for CRUD operations
+[ ] Set up Express server
+[ ] Implement user registration and authentication using an appropriate middleware
+[ ] Set up NeDB database to store user information, goals, and achievements
+[ ] Design and implement CRUD operations for goals (add, edit, delete, progress update)
+[ ] Write unit tests for CRUD operations
 Frontend development:
  [ ] Set up Mustache templates or an alternative UI approach
  [ ] Create a layout template for a consistent look and feel across pages
