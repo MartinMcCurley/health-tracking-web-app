@@ -49,7 +49,6 @@ Health Tracking Web App
 - [ ] Package the website code and README file as a .zip or provide a link to the GitHub repository
 - [ ] Submit the website code, README, test report, and link to the live site or video screen capture via CodeGrade on GCULearn and Planet eStream
 
-
 # Features
 - About Us page with information about the application
 - User registration and authentication
@@ -64,21 +63,6 @@ These instructions will get you a copy of the project up and running on your loc
 # Prerequisites
 Node.js (version X.X.X or later)
 Express (version X.X.X or later)
-NeDB (version X.X.X or later)
-Mustache templates (version X.X.X or later) or alternative UI approach with justification
-
-# Installing
-A step-by-step guide to install and set up the project on your local machine.
-
-# Running the tests
-Explain how to run the automated tests for this system.
-
-# Deployment
-Add additional notes about how to deploy this on a live system.
-
-# Built With
-Node.js
-Express
 NeDB
 Mustache or alternative UI approach
 Contributing
