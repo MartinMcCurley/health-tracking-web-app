@@ -1,0 +1,36 @@
+{
+  "name": "health-tracking-web-app",
+  "version": "1.0.0",
+  "description": "App to track health and fitness goals",
+  "main": "app.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app.js",
+    "dev": "cross-env NODE_ENV=development nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MMcUni/health-tracking-web-app.git"
+  },
+  "author": "MArtin McCurley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MMcUni/health-tracking-web-app/issues"
+  },
+  "homepage": "https://github.com/MMcUni/health-tracking-web-app#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
+    "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.4",
+    "morgan": "^1.10.0",
+    "nedb": "^1.8.0",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.22"
+  }
+}

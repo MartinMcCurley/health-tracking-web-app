@@ -1,13 +1,13 @@
 # Health Tracking Web App
 
-## Health-Tracking-Web-App Project Checklist
+## Project Checklist
 
 ### 1. Project setup
 
 - [X] Initialize a Git repository
-- [ ] Set up a Node.js project with a package.json file
-- [ ] Create a README file with instructions on how to run the site and a list of implemented features
-- [ ] Define project structure and organize folders
+- [X] Set up a Node.js project with a package.json file
+- [X] Create a README file with instructions on how to run the site and a list of implemented features
+- [X] Define project structure and organize folders
 
 ### 2. Backend development
 
