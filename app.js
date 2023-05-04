@@ -4,10 +4,11 @@ const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const Datastore = require('nedb');
 const path = require('path');
-const passport = require('passport')
-const session = require('express-session')
-const connectDB = require('./config/db')
+const passport = require('passport');
+const session = require('express-session');
+const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
+const NedbStore = require('connect-nedb-session')(session);
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -18,20 +19,23 @@ require('./config/passport')(passport);
 const app = express();
 
 // Logging
-if(process.env.NODE_ENV === 'development') { 
+if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
 // Handlebars
-app.engine('.hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs'}));
+app.engine('.hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
 // Sessions
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-}))
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    store: new NedbStore({ filename: 'sessions.db' }),
+  })
+);
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -42,7 +46,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/auth', authRoutes);
-
 
 // Set up NeDB
 const dbPath = path.join(__dirname, 'database1.db');

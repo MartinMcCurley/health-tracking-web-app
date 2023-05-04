@@ -11,8 +11,8 @@
 
 ### 2. Backend development
 
-- [ ] Set up Express server
-- [ ] Implement user registration and authentication using an appropriate middleware
+- [X] Set up Express server
+- [X] Implement user registration and authentication using an appropriate middleware
 - [ ] Set up NeDB database to store user information, goals, and achievements
 - [ ] Design and implement CRUD operations for goals (add, edit, delete, progress update)
 - [ ] Write unit tests for CRUD operations
