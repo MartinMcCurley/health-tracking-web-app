@@ -27,6 +27,10 @@ if (process.env.NODE_ENV === 'development') {
 app.engine('.hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
+// Set up NeDB
+const dbPath = path.join(__dirname, 'database1.db');
+const db = new Datastore({ filename: dbPath, autoload: true });
+
 // Sessions
 app.use(
   session({
@@ -36,6 +40,7 @@ app.use(
     store: new NedbStore({ filename: 'sessions.db' }),
   })
 );
+
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -44,12 +49,8 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
-app.use('/', require('./routes/index'));
+app.use('/', require('./routes/index')(db));
 app.use('/auth', authRoutes);
-
-// Set up NeDB
-const dbPath = path.join(__dirname, 'database1.db');
-const db = new Datastore({ filename: dbPath, autoload: true });
 
 // Example: Insert a document into NeDB
 const doc = { exampleField: 'Example value' };
