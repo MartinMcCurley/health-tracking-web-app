@@ -6,12 +6,11 @@ const connectDB = async () => {
 
     console.log('NeDB Connected');
     
-    // Make the database instance available through module exports
-    module.exports = db;
+    return db;
   } catch (err) {
     console.error(err);
     process.exit(1);
   }
 };
 
-connectDB();
+module.exports = connectDB;

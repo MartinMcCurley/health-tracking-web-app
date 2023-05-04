@@ -18,6 +18,10 @@ require('./config/passport')(passport);
 
 const app = express();
 
+// Body parser
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 // Logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -30,6 +34,13 @@ app.set('view engine', '.hbs');
 // Set up NeDB
 const dbPath = path.join(__dirname, 'database1.db');
 const db = new Datastore({ filename: dbPath, autoload: true });
+app.set('db', db);
+
+// Pass the db instance to the routes
+app.use((req, res, next) => {
+  req.db = db;
+  next();
+});
 
 // Sessions
 app.use(
@@ -49,8 +60,9 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
-app.use('/', require('./routes/index')(db));
+app.use('/', require('./routes/index'));
 app.use('/auth', authRoutes);
+app.use('/goals', require('./routes/goals'));
 
 // Example: Insert a document into NeDB
 const doc = { exampleField: 'Example value' };
