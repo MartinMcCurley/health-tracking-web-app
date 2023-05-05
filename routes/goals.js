@@ -18,7 +18,6 @@ router.post("/", ensureAuth, async (req, res) => {
 
         await new Promise((resolve, reject) => {
             req.db.insert(req.body, (err, newDoc) => {
-                // Changed this line from 'Goal.insert' to 'req.db.insert'
                 if (err) {
                     reject(err);
                 } else {
@@ -89,6 +88,28 @@ router.get("/:id", ensureAuth, async (req, res) => {
             });
         });
         res.render("goals/show", {
+            goal,
+        });
+    } catch (err) {
+        console.error(err);
+        res.render("error/404");
+    }
+});
+
+// @desc    Show edit page using promise
+// @route   GET /goals/edit/:id
+router.get("/edit/:id", ensureAuth, async (req, res) => {
+    try {
+        let goal = await new Promise((resolve, reject) => {
+            req.db.findOne({ _id: req.params.id }, (err, goal) => {
+                if (err || !goal) {
+                    reject(err);
+                } else {
+                    resolve(goal);
+                }
+            });
+        })
+        res.render("goals/edit", {
             goal,
         });
     } catch (err) {

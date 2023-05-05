@@ -13,12 +13,16 @@
         </thead>
         <tbody>
             {{#each goals}}
-            <tr>
-                <td><a href="/goals/{{_id}}">{{title}}</a></td>
-                <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
-                <td><span class="dash-status">{{status}}</span></td>
-                <td></td>
-            </tr>
+                <tr>
+                    <td><a href="/goals/{{_id}}">{{title}}</a></td>
+                    <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
+                    <td><span class="dash-status">{{status}}</span></td>
+                    <td>
+                        <a href="/goals/edit/{{_id}}" class="btn btn-float">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
             {{/each}}
         </tbody>
     </table>
