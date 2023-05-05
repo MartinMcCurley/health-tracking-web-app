@@ -1,26 +1,10 @@
-<h1>goals</h1>
-<ul class="search-form">
-    <li>    
-        <form id="search-site"  action='/goals/search/:query' method='get'>
-            <div class="input-group">
-                    <i class="fas fa-search fa-large" ></i>
-                    <div class="input-field">
-                    <input id="search" type="search" name='query' placeholder="Search by title">
-                    <label class="label-icon" for="search">
-                    </label>
-                 </div>
-                <button type="submit" class="input-group-addon btn">search</button>
-            </div>
-
-        </form>  
-    </li>   
-</ul>
+<h1>Goals</h1>
 <div class="row">
     {{#each goals}}
     <div class="col s12 m4">
         <div class="card">
             <div class="card-image">
-                {{{editIcon user ../user _id}}}
+                {{!-- todo: editicon --}}
             </div>
             <div class="card-content center-align">
                 <h5>{{title}}</h5>
