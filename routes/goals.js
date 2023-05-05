@@ -75,4 +75,26 @@ router.get("/", ensureAuth, async (req, res) => {
     }
 });
 
+// @desc    Show single goal
+// @route   GET /goals/:id
+router.get("/:id", ensureAuth, async (req, res) => {
+    try {
+        let goal = await new Promise((resolve, reject) => {
+            req.db.findOne({ _id: req.params.id }, (err, goal) => {
+                if (err || !goal) {
+                    reject(err);
+                } else {
+                    resolve(goal);
+                }
+            });
+        });
+        res.render("goals/show", {
+            goal,
+        });
+    } catch (err) {
+        console.error(err);
+        res.render("error/404");
+    }
+});
+
 module.exports = router;
