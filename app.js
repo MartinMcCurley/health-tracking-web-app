@@ -9,6 +9,7 @@ const session = require('express-session');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const NedbStore = require('connect-nedb-session')(session);
+const { attachUser } = require('./middleware/auth');
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -32,7 +33,7 @@ app.engine('.hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
 // Set up NeDB
-const dbPath = path.join(__dirname, 'database1.db');
+const dbPath = path.join(__dirname, 'goals.db');
 const db = new Datastore({ filename: dbPath, autoload: true });
 app.set('db', db);
 
@@ -55,6 +56,7 @@ app.use(
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(attachUser);
 
 // Static folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -63,13 +65,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routes/index'));
 app.use('/auth', authRoutes);
 app.use('/goals', require('./routes/goals'));
-
-// Example: Insert a document into NeDB
-const doc = { exampleField: 'Example value' };
-db.insert(doc, (err, newDoc) => {
-  if (err) console.error(err);
-  console.log('Inserted document:', newDoc);
-});
 
 const PORT = process.env.PORT || 3000;
 
