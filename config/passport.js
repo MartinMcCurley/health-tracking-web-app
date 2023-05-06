@@ -1,6 +1,6 @@
 // config/passport.js
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('../models/user');
+const User = require('../models/User');
 const Datastore = require('nedb');
 const db = new Datastore({ filename: 'users.db', autoload: true });
 
