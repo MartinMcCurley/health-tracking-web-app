@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/MMcUni/health-tracking-web-app.git"
   },
-  "author": "MArtin McCurley",
+  "author": "Martin McCurley",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MMcUni/health-tracking-web-app/issues"
