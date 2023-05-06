@@ -4,14 +4,14 @@ class Goal {
         this.date = date;
         this.targetDate = targetDate;
         this.body = body;
-        this.status = status || "public";
+        this.status = status || "active";
         this.category = category;
         this.user = user;
         this.createdAt = new Date();
     }
 
     static isValidStatus(status) {
-        return ["public", "private"].includes(status);
+        return ["active", "complete"].includes(status);
     }
 
     static isValidCategory(category) {

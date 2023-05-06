@@ -38,7 +38,7 @@ router.post("/", ensureAuth, async (req, res) => {
 router.get("/", ensureAuth, async (req, res) => {
     try {
         req.db
-            .find({ status: "public" })
+            .find({ status: "complete" })
             .sort({ createdAt: -1 })
             .exec(async (err, goals) => {
                 if (err) {
