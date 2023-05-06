@@ -136,11 +136,30 @@ router.post("/:id", ensureAuth, async (req, res) => {
                     }
                 }
             );
-        }
-        );
+        });
         res.redirect("/dashboard");
-        
+    } catch (err) {
+        console.error(err);
+        return res.render("error/500");
+    }
+});
 
+// @desc    Delete goal using promise
+// @route   DELETE /goals/:id
+router.post("/delete/:id", ensureAuth, async (req, res) => {
+    try {
+        console.log("deletex");
+        await new Promise((resolve, reject) => {
+            req.db.remove({ _id: req.params.id }, {}, (err, goal) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(goal);
+                }
+            });
+        });
+
+        res.redirect("/dashboard");
     } catch (err) {
         console.error(err);
         return res.render("error/500");
