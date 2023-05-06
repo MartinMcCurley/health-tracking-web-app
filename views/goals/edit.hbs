@@ -1,11 +1,29 @@
 <h3>Edit goal</h3>
 <div class="row">
     <form action="/goals/{{goal._id}}" method="POST" class="col s12">
-        <input type="hidden" name="_method" value="POST">
+        <input type="hidden" name="_method" value="POST" />
         <div class="row">
             <div class="input-field">
-                <input type="text" id="title" name="title" value="{{goal.title}}">
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value="{{goal.title}}"
+                />
                 <label for="title">Title</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field">
+                <select id="category" name="category">
+                    {{#select goal.category}}
+                        <option value="Health" selected>Health</option>
+                        <option value="Nutrition">Nutrition</option>
+                        <option value="Fitness">Fitness</option>
+                    {{/select}}
+                </select>
+                <label for="category">Category</label>
             </div>
         </div>
 
@@ -13,8 +31,8 @@
             <div class="input-field">
                 <select id="status" name="status">
                     {{#select goal.status}}
-                    <option value="public" selected>Public</option>
-                    <option value="private">Private</option>
+                        <option value="public" selected>Public</option>
+                        <option value="private">Private</option>
                     {{/select}}
                 </select>
                 <label for="status">Status</label>
@@ -29,7 +47,7 @@
         </div>
 
         <div class="row">
-            <input type="submit" value="Save" class="btn">
+            <input type="submit" value="Save" class="btn" />
             <a href="/dashboard" class="btn orange">Cancel</a>
         </div>
     </form>

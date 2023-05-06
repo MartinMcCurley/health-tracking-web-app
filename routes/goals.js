@@ -15,7 +15,7 @@ router.get("/add", ensureAuth, (req, res) => {
 router.post("/", ensureAuth, async (req, res) => {
     try {
         req.body.user = req.user._id;
-
+        console.log(req.body.createdAt);
         await new Promise((resolve, reject) => {
             req.db.insert(req.body, (err, newDoc) => {
                 if (err) {
@@ -126,7 +126,7 @@ router.post("/:id", ensureAuth, async (req, res) => {
         let goal = await new Promise((resolve, reject) => {
             req.db.update(
                 { _id: req.params.id },
-                { $set: { title: req.body.title, body: req.body.body } },
+                { $set: { title: req.body.title, targetDate: req.body.targetDate, category: req.body.category, status: req.body.status, body: req.body.body } },
                 {},
                 (err, goal) => {
                     if (err || !goal) {
