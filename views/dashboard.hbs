@@ -6,19 +6,21 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Start Date</th>
                 <th>Target Date</th>
                 <th>Category</th>
                 <th>Status</th>
                 <th></th>
-                
+
             </tr>
         </thead>
         <tbody>
             {{#each goals}}
                 <tr>
                     <td><a href="/goals/{{_id}}">{{title}}</a></td>
-                    {{!-- <td>{{formatDate targetDate 'MMMM Do YYYY, h:mm:ss a'}}</td> --}}
+                    {{!-- <td>{{formatDate date 'MMMM Do YYYY, h:mm:ss a'}}</td> --}}
                     <td>{{date}}</td>
+                    <td>{{targetDate}}</td>
                     <td><span class="dash-status">{{category}}</span></td>
                     <td><span class="dash-status">{{status}}</span></td>
                     <td>

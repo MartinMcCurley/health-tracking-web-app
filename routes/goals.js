@@ -126,7 +126,7 @@ router.post("/:id", ensureAuth, async (req, res) => {
         let goal = await new Promise((resolve, reject) => {
             req.db.update(
                 { _id: req.params.id },
-                { $set: { title: req.body.title, targetDate: req.body.targetDate, category: req.body.category, status: req.body.status, body: req.body.body } },
+                { $set: { title: req.body.title, date: req.body.date, targetDate: req.body.targetDate, category: req.body.category, status: req.body.status, body: req.body.body } },
                 {},
                 (err, goal) => {
                     if (err || !goal) {

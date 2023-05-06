@@ -1,12 +1,13 @@
 class Goal {
-    constructor(title, targetDate, body, status, category, user ) {
+    constructor(title, date, targetDate, body, status, category, user ) {
         this.title = title;
+        this.date = date;
         this.targetDate = targetDate;
         this.body = body;
         this.status = status || "public";
         this.category = category;
         this.user = user;
-        this.createdAt = Date.now();
+        this.createdAt = new Date();
     }
 
     static isValidStatus(status) {
