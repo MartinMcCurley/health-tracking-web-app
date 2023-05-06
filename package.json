@@ -19,6 +19,7 @@
   "homepage": "https://github.com/MMcUni/health-tracking-web-app#readme",
   "dependencies": {
     "connect-nedb-session": "^0.0.3",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.7",
