@@ -108,13 +108,42 @@ router.get("/edit/:id", ensureAuth, async (req, res) => {
                     resolve(goal);
                 }
             });
-        })
+        });
         res.render("goals/edit", {
             goal,
         });
     } catch (err) {
         console.error(err);
         res.render("error/404");
+    }
+});
+
+// @desc    Update goal using promise
+// @route   PUT /goals/:id
+router.post("/:id", ensureAuth, async (req, res) => {
+    try {
+        console.log("putty");
+        let goal = await new Promise((resolve, reject) => {
+            req.db.update(
+                { _id: req.params.id },
+                { $set: { title: req.body.title, body: req.body.body } },
+                {},
+                (err, goal) => {
+                    if (err || !goal) {
+                        reject(err);
+                    } else {
+                        resolve(goal);
+                    }
+                }
+            );
+        }
+        );
+        res.redirect("/dashboard");
+        
+
+    } catch (err) {
+        console.error(err);
+        return res.render("error/500");
     }
 });
 
