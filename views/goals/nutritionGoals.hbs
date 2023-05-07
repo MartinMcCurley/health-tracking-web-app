@@ -1,4 +1,4 @@
-<h1>Your Achievements</h1>
+<h1>Your Nutrition Goals</h1>
 <div class="row">
     {{#each goals}}
     <div class="col s12 m4">
@@ -10,16 +10,11 @@
                 <h5>{{title}}</h5>
                 <p>{{stripTags (truncate body 150)}}</p>
                 <br>
-                <div class="">
-                    <img src="{{user.image}}" alt="">
-                    <a>Well Done! This goal is COMPLETE!</a>
-                </div>
             </div>
             <div class="card-action center-align">
                 <a href="/goals/{{_id}}" class="btn grey">More Details</a>
             </div>
         </div>
-    </div>
     </div>
     {{else}}
     <p>No goals to display</p>
