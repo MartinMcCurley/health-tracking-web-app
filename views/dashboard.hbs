@@ -23,24 +23,25 @@
                     <td><span class="dash-status">{{category}}</span></td>
                     <td><span class="dash-status">{{status}}</span></td>
                     <td>
-                        <a href="/goals/edit/{{_id}}" class="btn btn-float">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <form
-                            action="/goals/delete/{{_id}}"
-                            method="POST"
-                            id="delete-form"
-                        >
-
-                            <input
-                                type="hidden"
-                                name="_method"
-                                value="DELETE"
-                            />
-                            <button type="submit" class="btn red">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+                        <div class="action-buttons">
+                            <a href="/goals/edit/{{_id}}" class="btn btn-float">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form
+                                action="/goals/delete/{{_id}}"
+                                method="POST"
+                                id="delete-form"
+                            >
+                                <input
+                                    type="hidden"
+                                    name="_method"
+                                    value="DELETE"
+                                />
+                                <button type="submit" class="btn red">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             {{/each}}
