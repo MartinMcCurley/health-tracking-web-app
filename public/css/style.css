@@ -1,3 +1,20 @@
+:root {
+    --amber-lighten-5: #fff8e1;
+    --amber-lighten-4: #ffecb3;
+    --amber-lighten-3: #ffe082;
+    --amber-lighten-2: #ffd54f;
+    --amber-lighten-1: #ffca28;
+    --amber: #ffc107;
+    --amber-darken-1: #ffb300;
+    --amber-darken-2: #ffa000;
+    --amber-darken-3: #ff8f00;
+    --amber-darken-4: #ff6f00;
+    --amber-accent-1: #ffe57f;
+    --amber-accent-2: #ffd740;
+    --amber-accent-3: #ffc400;
+    --amber-accent-4: #ffab00;
+}
+  
 p {
     margin: 10px 0 !important;
 }
@@ -20,8 +37,9 @@ body {
 }
 
 nav.grey.darken-3 {
-    background-color: #0d47a1; /* A custom blue color */
-}
+    background-color: var(--amber);
+  }
+  
 
 h6 {
     font-size: 1.5rem;
@@ -58,7 +76,34 @@ table.striped th {
     padding: 0.75rem 1.5rem;
 }
 
+
+
 .action-buttons {
     display: flex;
     justify-content: space-evenly;
+}
+
+.modal {
+    max-height: none;
+    overflow-y: visible;
+  }
+  
+  .modal .modal-content {
+    padding-bottom: 0;
+  }
+
+  .modal .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 24px;
+  }
+  
+  .modal .modal-footer .btn-flat {
+    margin-right: auto;
+  }
+
+.rounded-modal .modal-content,
+.rounded-modal .modal-footer {
+    border-radius: 24px;
 }
