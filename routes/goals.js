@@ -33,12 +33,12 @@ router.post("/", ensureAuth, async (req, res) => {
     }
 });
 
-// @desc    Show all goals
+// @desc    Show all completed goals
 // @route   GET /goals
 router.get("/", ensureAuth, async (req, res) => {
     try {
         req.db
-            .find({ status: "complete" })
+            .find({ status: "complete", user: req.user._id })
             .sort({ createdAt: -1 })
             .exec(async (err, goals) => {
                 if (err) {
@@ -73,6 +73,131 @@ router.get("/", ensureAuth, async (req, res) => {
         res.render("error/500");
     }
 });
+
+// @desc    Show all fitness goals
+// @route   GET /goals
+router.get("/fitnessGoals", ensureAuth, async (req, res) => {
+    try {
+        req.db
+            .find({ category: "Fitness", user: req.user._id })
+            .sort({ createdAt: -1 })
+            .exec(async (err, goals) => {
+                if (err) {
+                    console.error(err);
+                    res.render("error/500");
+                } else {
+                    const populatedGoals = await Promise.all(
+                        goals.map(async (goal) => {
+                            return new Promise((resolve, reject) => {
+                                req.db.findOne(
+                                    { _id: goal.user },
+                                    (err, user) => {
+                                        if (err) {
+                                            reject(err);
+                                        } else {
+                                            goal.user = user;
+                                            resolve(goal);
+                                        }
+                                    }
+                                );
+                            });
+                        })
+                    );
+
+                    res.render("goals/fitnessGoals", {
+                        goals: populatedGoals,
+                    });
+                }
+            });
+    } catch (err) {
+        console.error(err);
+        res.render("error/500");
+    }
+});
+
+// @desc    Show all nutrition goals
+// @route   GET /goals
+router.get("/nutritionGoals", ensureAuth, async (req, res) => {
+    try {
+        req.db
+            .find({ category: "Nutrition", user: req.user._id })
+            .sort({ createdAt: -1 })
+            .exec(async (err, goals) => {
+                if (err) {
+                    console.error(err);
+                    res.render("error/500");
+                } else {
+                    const populatedGoals = await Promise.all(
+                        goals.map(async (goal) => {
+                            return new Promise((resolve, reject) => {
+                                req.db.findOne(
+                                    { _id: goal.user },
+                                    (err, user) => {
+                                        if (err) {
+                                            reject(err);
+                                        } else {
+                                            goal.user = user;
+                                            resolve(goal);
+                                        }
+                                    }
+                                );
+                            });
+                        })
+                    );
+
+                    res.render("goals/nutritionGoals", {
+                        goals: populatedGoals,
+                    });
+                }
+            });
+    } catch (err) {
+        console.error(err);
+        res.render("error/500");
+    }
+});
+
+// @desc    Show all health goals
+// @route   GET /goals
+router.get("/healthGoals", ensureAuth, async (req, res) => {
+    try {
+        req.db
+            .find({ category: "Health", user: req.user._id })
+            .sort({ createdAt: -1 })
+            .exec(async (err, goals) => {
+                if (err) {
+                    console.error(err);
+                    res.render("error/500");
+                } else {
+                    const populatedGoals = await Promise.all(
+                        goals.map(async (goal) => {
+                            return new Promise((resolve, reject) => {
+                                req.db.findOne(
+                                    { _id: goal.user },
+                                    (err, user) => {
+                                        if (err) {
+                                            reject(err);
+                                        } else {
+                                            goal.user = user;
+                                            resolve(goal);
+                                        }
+                                    }
+                                );
+                            });
+                        })
+                    );
+
+                    res.render("goals/healthGoals", {
+                        goals: populatedGoals,
+                    });
+                }
+            });
+    } catch (err) {
+        console.error(err);
+        res.render("error/500");
+    }
+});
+
+
 
 // @desc    Show single goal
 // @route   GET /goals/:id
@@ -148,7 +273,6 @@ router.post("/:id", ensureAuth, async (req, res) => {
 // @route   DELETE /goals/:id
 router.post("/delete/:id", ensureAuth, async (req, res) => {
     try {
-        console.log("deletex");
         await new Promise((resolve, reject) => {
             req.db.remove({ _id: req.params.id }, {}, (err, goal) => {
                 if (err) {

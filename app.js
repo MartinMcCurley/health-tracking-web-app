@@ -10,6 +10,9 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const NedbStore = require('connect-nedb-session')(session);
 const { attachUser } = require('./middleware/auth');
+const staticPages = require('./routes/staticPages');
+const goalsRoutes = require('./routes/goals');
+
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -68,6 +71,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routes/index'));
 app.use('/auth', authRoutes);
 app.use('/goals', require('./routes/goals'));
+app.use('/', staticPages);
 
 const PORT = process.env.PORT || 3000;
 

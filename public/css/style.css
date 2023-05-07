@@ -6,3 +6,55 @@ p {
     margin-top: 50px;
     text-align: center;
 }
+
+.goal-body-box {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 15px;
+  }
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+nav.grey.darken-3 {
+    background-color: #0d47a1; /* A custom blue color */
+}
+
+h6 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+h3 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+table.striped {
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+}
+
+table.striped tr {
+    transition: background-color 0.3s ease;
+}
+
+table.striped tr:hover {
+    background-color: rgba(13, 71, 161, 0.1);
+}
+
+table.striped td,
+table.striped th {
+    padding: 0.75rem 1.5rem;
+}
+
