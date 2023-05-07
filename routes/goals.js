@@ -33,12 +33,12 @@ router.post("/", ensureAuth, async (req, res) => {
     }
 });
 
-// @desc    Show all completed goals
+// @desc    Show all completed goals for the logged-in user
 // @route   GET /goals
 router.get("/", ensureAuth, async (req, res) => {
     try {
         req.db
-            .find({ status: "complete" })
+            .find({ status: "complete", user: req.user.id }) // Add the user's ID to the search criteria
             .sort({ createdAt: -1 })
             .exec(async (err, goals) => {
                 if (err) {
@@ -73,6 +73,7 @@ router.get("/", ensureAuth, async (req, res) => {
         res.render("error/500");
     }
 });
+
 
 
 // @desc    Show single goal
