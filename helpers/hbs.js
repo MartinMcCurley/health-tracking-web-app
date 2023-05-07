@@ -1,22 +1,32 @@
-// Import required packages
 const moment = require('moment');
 
-// Export Handlebars helper functions
 module.exports = {
-    // Format date using moment.js
     formatDate: function (date, format) {
         return moment(date).format(format);
     },
-    // Truncate string to specified length
     truncate: function (str, len) {
-        // Truncate logic here
+        if (str.length > len && str.length > 0) {
+            let new_str = str + " ";
+            new_str = str.substr(0, len);
+            new_str = str.substr(0, new_str.lastIndexOf(" "));
+            new_str = new_str.length > 0 ? new_str : str.substr(0, len);
+            return new_str + "...";
+        }
+        return str;
     },
-    // Remove HTML tags from input string
     stripTags: function (input) {
         return input.replace(/<(?:.|\n)*?>/gm, "");
     },
-    // Set selected option in a dropdown list
     select: function (selected, options) {
-        // Select option logic here
-    },
+        return options
+          .fn(this)
+          .replace(
+            new RegExp(' value="' + selected + '"'),
+            '$& selected="selected"'
+          )
+          .replace(
+            new RegExp('>' + selected + '</option>'),
+            ' selected="selected"$&'
+          )
+      },
 };

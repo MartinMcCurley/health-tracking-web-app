@@ -1,21 +1,19 @@
-// Import required packages and modules
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const User = require('../models/User');
 const Datastore = require('nedb');
-
-// Create or load users database file
 const db = new Datastore({ filename: 'users.db', autoload: true });
 
-// Configure and export passport Google authentication strategy
 module.exports = function (passport) {
   passport.use(
     new GoogleStrategy(
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        // callbackURL: '/auth/google/callback',
         callbackURL: 'https://health-tracking-web-app.herokuapp.com/auth/google/callback',
+
       },
       async (accessToken, refreshToken, profile, done) => {
-        // Define new user data
         const newUser = {
           googleId: profile.id,
           displayName: profile.displayName,
@@ -25,7 +23,6 @@ module.exports = function (passport) {
         };
 
         try {
-          // Check if user exists or create a new user
           db.findOne({ googleId: profile.id }, (err, user) => {
             if (err) return done(err);
 
@@ -47,7 +44,6 @@ module.exports = function (passport) {
     )
   );
 
-  // Serialize and deserialize user for session management
   passport.serializeUser((user, done) => {
     done(null, user._id);
   });
