@@ -15,20 +15,20 @@
 - [x] Implement user registration and authentication using an appropriate middleware
 - [x] Set up NeDB database to store user information, goals, and achievements
 - [x] Design and implement CRUD operations for goals (add, edit, delete, progress update)
-- [ ] Write unit tests for CRUD operations
+- [X] Write unit tests for CRUD operations
 
 ### 3. Frontend development
 
 - [x] Set up Handlebars templates
 - [x] Create a layout template for a consistent look and feel across pages
-- [ ] Design and implement the About Us page
-- [ ] Design and implement user registration and login pages
-- [ ] Design and implement pages for browsing information about nutrition, fitness, and healthy lifestyle
+- [X] Design and implement the About Us page
+- [X] Design and implement user registration and login pages
+- [X] Design and implement pages for browsing information about nutrition, fitness, and healthy lifestyle
 - [x] Design and implement the goals tracking section:
   - [x] Goals list page with add, edit, and delete options
   - [x] Add goal page with title, description, category, start and end dates, and progress input fields
   - [x] Edit goal page with title, description, category, start and end dates, and progress input fields
-  - [ ] Delete goal confirmation dialog
+  - [x] Delete goal confirmation dialog
 
 ### 4. Integration
 
@@ -38,23 +38,23 @@
 
 ### 5. Testing and debugging
 
-- [ ] Perform end-to-end testing for various user scenarios
-- [ ] Fix any bugs or issues discovered during testing
-- [ ] Optimize the application for performance, if necessary
-- [ ] Prepare a test report (refer to Appendix A for format)
+- [X] Perform end-to-end testing for various user scenarios
+- [X] Fix any bugs or issues discovered during testing
+- [X] Optimize the application for performance, if necessary
+- [X] Prepare a test report (refer to Appendix A for format)
 
 ### 6. Deployment
 
 - [x] Set up a production environment
 - [x] Deploy the application to a live server
 - [x] Test the application in the production environment to ensure it works correctly
-- [ ] Provide a link to the live version of the site or create a video screen capture demonstrating the website in use
+- [x] Provide a link to the live version of the site or create a video screen capture demonstrating the website in use
 
 ### 7. Final submission
 
 - [x] Update the README file with any necessary changes
-- [ ] Package the website code and README file as a .zip or provide a link to the GitHub repository
-- [ ] Submit the website code, README, test report, and link to the live site or video screen capture via CodeGrade on GCULearn and Planet eStream
+- [x] Package the website code and README file as a .zip or provide a link to the GitHub repository
+- [x] Submit the website code, README, test report, and link to the live site or video screen capture via CodeGrade on GCULearn and Planet eStream
 
 ## Features
 
@@ -109,16 +109,7 @@ Handlebars (version 7.0.7 or later)
 
 ## Authors
 
-Martin McCurley - Initial work - MMcUni
-See also the list of contributors who participated in this project if applicable.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details.
-
-## Acknowledgments
-
-Will add throughout
+Martin McCurley - Initial work - Github: MMcUni
 
 ## Justification of template engine
 
