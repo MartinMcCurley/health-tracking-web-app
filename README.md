@@ -4,37 +4,37 @@
 
 ### 1. Project setup
 
-- [X] Initialize a Git repository
-- [X] Set up a Node.js project with a package.json file
-- [X] Create a README file with instructions on how to run the site and a list of implemented features
-- [X] Define project structure and organize folders
+- [x] Initialize a Git repository
+- [x] Set up a Node.js project with a package.json file
+- [x] Create a README file with instructions on how to run the site and a list of implemented features
+- [x] Define project structure and organize folders
 
 ### 2. Backend development
 
-- [X] Set up Express server
-- [X] Implement user registration and authentication using an appropriate middleware
-- [X] Set up NeDB database to store user information, goals, and achievements
-- [X] Design and implement CRUD operations for goals (add, edit, delete, progress update)
+- [x] Set up Express server
+- [x] Implement user registration and authentication using an appropriate middleware
+- [x] Set up NeDB database to store user information, goals, and achievements
+- [x] Design and implement CRUD operations for goals (add, edit, delete, progress update)
 - [ ] Write unit tests for CRUD operations
 
 ### 3. Frontend development
 
-- [X] Set up Handlebars templates
-- [X] Create a layout template for a consistent look and feel across pages
+- [x] Set up Handlebars templates
+- [x] Create a layout template for a consistent look and feel across pages
 - [ ] Design and implement the About Us page
 - [ ] Design and implement user registration and login pages
 - [ ] Design and implement pages for browsing information about nutrition, fitness, and healthy lifestyle
-- [X] Design and implement the goals tracking section:
-  - [X] Goals list page with add, edit, and delete options
-  - [X] Add goal page with title, description, category, start and end dates, and progress input fields
-  - [X] Edit goal page with title, description, category, start and end dates, and progress input fields
+- [x] Design and implement the goals tracking section:
+  - [x] Goals list page with add, edit, and delete options
+  - [x] Add goal page with title, description, category, start and end dates, and progress input fields
+  - [x] Edit goal page with title, description, category, start and end dates, and progress input fields
   - [ ] Delete goal confirmation dialog
 
 ### 4. Integration
 
-- [X] Connect frontend with backend CRUD operations for goals
-- [X] Test user registration and authentication flow
-- [X] Test goals tracking functionality (add, edit, delete, and progress update)
+- [x] Connect frontend with backend CRUD operations for goals
+- [x] Test user registration and authentication flow
+- [x] Test goals tracking functionality (add, edit, delete, and progress update)
 
 ### 5. Testing and debugging
 
@@ -45,14 +45,14 @@
 
 ### 6. Deployment
 
-- [X] Set up a production environment
-- [X] Deploy the application to a live server
-- [X] Test the application in the production environment to ensure it works correctly
+- [x] Set up a production environment
+- [x] Deploy the application to a live server
+- [x] Test the application in the production environment to ensure it works correctly
 - [ ] Provide a link to the live version of the site or create a video screen capture demonstrating the website in use
 
 ### 7. Final submission
 
-- [X] Update the README file with any necessary changes
+- [x] Update the README file with any necessary changes
 - [ ] Package the website code and README file as a .zip or provide a link to the GitHub repository
 - [ ] Submit the website code, README, test report, and link to the live site or video screen capture via CodeGrade on GCULearn and Planet eStream
 
@@ -68,30 +68,44 @@
 
 Add your google secret and client id to the config.env file (Required only for editing/testing not production)
 
-*Install dependencies*
+_Install dependencies_
 
 npm install
 
-*Run in development*
+_Run in development_
 
 npm run dev
 
-*Run in production*
+_Run in production_
 
 npm start
+
+## Dependencies
+
+connect-nedb-session (version 0.0.3)
+cross-env (version 7.0.3)
+dotenv (version 16.0.3)
+express (version 4.18.2)
+express-handlebars (version 7.0.7)
+express-session (version 1.17.3)
+method-override (version 3.0.0)
+moment (version 2.29.4)
+morgan (version 1.10.0)
+nedb (version 1.8.0)
+passport (version 0.6.0)
+passport-google-oauth20 (version 2.0.0)
+
+## DevDependencies
+
+cross-env (version 7.0.3)
+nodemon (version 2.0.22)
 
 ## Prerequisites
 
 Node.js (version X.X.X or later)
-Express (version X.X.X or later)
-NeDB
-Mustache or alternative UI approach
-Contributing
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
-
-## Versioning
-
-We use SemVer for versioning.
+Express (version 4.18.2 or later)
+NeDB (version 1.8.0 or later)
+Handlebars (version 7.0.7 or later)
 
 ## Authors
 

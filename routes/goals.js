@@ -33,7 +33,7 @@ router.post("/", ensureAuth, async (req, res) => {
     }
 });
 
-// @desc    Show all goals
+// @desc    Show all completed goals
 // @route   GET /goals
 router.get("/", ensureAuth, async (req, res) => {
     try {
@@ -73,6 +73,7 @@ router.get("/", ensureAuth, async (req, res) => {
         res.render("error/500");
     }
 });
+
 
 // @desc    Show single goal
 // @route   GET /goals/:id
