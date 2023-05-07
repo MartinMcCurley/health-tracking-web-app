@@ -6,3 +6,11 @@ p {
     margin-top: 50px;
     text-align: center;
 }
+
+.goal-body-box {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 15px;
+  }
