@@ -1,21 +1,93 @@
 <nav class="">
     <div class="nav-wrapper container">
-        <a href="#!" class="brand-logo center">HealthTrackingWebApp</a>
+        <a href="/dashboard" class="brand-logo left">HealthTrack</a>
+        
+        <!-- Theme toggle switch -->
+        <div class="right hide-on-small-only">
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="theme-toggle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <span class="slider round"></span>
+                </label>
+                <span class="theme-icon"><i class="fas fa-sun"></i></span>
+            </div>
+        </div>
+        
         <a
             href="#"
             data-target="mobile-demo"
-            class="sidenav-trigger show-on-large"
+            class="sidenav-trigger right"
         ><i class="fas fa-bars"></i></a>
+        
+        <!-- Desktop navigation -->
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/dashboard" class="tooltipped" data-position="bottom" data-tooltip="View all your goals"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="#" class="dropdown-trigger" data-target="goals-dropdown"><i class="fas fa-bullseye"></i> Goals <i class="fas fa-caret-down"></i></a></li>
+            <li><a href="#" class="dropdown-trigger" data-target="info-dropdown"><i class="fas fa-info-circle"></i> Information <i class="fas fa-caret-down"></i></a></li>
+            <li><a href="/goals" class="tooltipped" data-position="bottom" data-tooltip="View your achievements"><i class="fas fa-trophy"></i> Achievements</a></li>
+            <li><a href="/auth/logout" class="tooltipped" data-position="bottom" data-tooltip="Sign out"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+        
+        <!-- Goals dropdown -->
+        <ul id="goals-dropdown" class="dropdown-content">
+            <li><a href="/goals/fitnessGoals"><i class="fas fa-running"></i> Fitness Goals</a></li>
+            <li><a href="/goals/nutritionGoals"><i class="fas fa-apple-alt"></i> Nutrition Goals</a></li>
+            <li><a href="/goals/healthGoals"><i class="fas fa-heartbeat"></i> Health Goals</a></li>
+        </ul>
+        
+        <!-- Info dropdown -->
+        <ul id="info-dropdown" class="dropdown-content">
+            <li><a href="/fitnessInfo"><i class="fas fa-dumbbell"></i> Fitness Info</a></li>
+            <li><a href="/nutritionalInfo"><i class="fas fa-carrot"></i> Nutritional Info</a></li>
+            <li><a href="/healthInfo"><i class="fas fa-medkit"></i> Health Info</a></li>
+        </ul>
+        
+        <!-- Mobile sidenav -->
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="/dashboard">Goals Dashboard</a></li>
-            <li><a href="/goals/fitnessGoals">Fitness Goals</a></li>
-            <li><a href="/goals/nutritionGoals">Nutrition Goals</a></li>
-            <li><a href="/goals/healthGoals">Health Goals</a></li>
-            <li><a href="/goals">Achievements</a></li>
-            <li><a href="/fitnessInfo">Fitness Info</a></li>
-            <li><a href="/nutritionalInfo">Nutritional Info</a></li>
-            <li><a href="/healthInfo">Health Info</a></li> 
-            <li><a href="/auth/logout">Logout</a></li>
+            <!-- Theme toggle for mobile -->
+            <li>
+                <div class="theme-switch-wrapper" style="padding: 0 32px; margin: 10px 0;">
+                    <span style="margin-right: 10px;">Dark Mode</span>
+                    <label class="theme-switch" for="theme-toggle-mobile">
+                        <input type="checkbox" id="theme-toggle-mobile" />
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </li>
+            <li><div class="divider"></div></li>
+            <li><a href="/dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><div class="divider"></div></li>
+            <li><a class="subheader"><i class="fas fa-bullseye"></i> Goals</a></li>
+            <li><a href="/goals/fitnessGoals"><i class="fas fa-running"></i> Fitness Goals</a></li>
+            <li><a href="/goals/nutritionGoals"><i class="fas fa-apple-alt"></i> Nutrition Goals</a></li>
+            <li><a href="/goals/healthGoals"><i class="fas fa-heartbeat"></i> Health Goals</a></li>
+            <li><div class="divider"></div></li>
+            <li><a class="subheader"><i class="fas fa-info-circle"></i> Information</a></li>
+            <li><a href="/fitnessInfo"><i class="fas fa-dumbbell"></i> Fitness Info</a></li>
+            <li><a href="/nutritionalInfo"><i class="fas fa-carrot"></i> Nutritional Info</a></li>
+            <li><a href="/healthInfo"><i class="fas fa-medkit"></i> Health Info</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="/goals"><i class="fas fa-trophy"></i> Achievements</a></li>
+            <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>
 </nav>
+
+<script>
+    // Sync mobile and desktop theme toggles
+    document.addEventListener('DOMContentLoaded', function() {
+        const desktopToggle = document.querySelector('#theme-toggle');
+        const mobileToggle = document.querySelector('#theme-toggle-mobile');
+        
+        if (desktopToggle && mobileToggle) {
+            // Sync initial state
+            mobileToggle.checked = desktopToggle.checked;
+            
+            // Sync when mobile toggle changes
+            mobileToggle.addEventListener('change', function() {
+                desktopToggle.checked = this.checked;
+                desktopToggle.dispatchEvent(new Event('change'));
+            });
+        }
+    });
+</script>

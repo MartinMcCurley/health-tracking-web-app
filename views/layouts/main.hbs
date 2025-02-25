@@ -1,36 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Health Tracking Web App - Track your fitness, nutrition, and health goals">
+    <meta name="theme-color" content="#1e88e5">
+    
+    <!-- PWA support -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/img/icons/icon-192x192.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/style.css">
-    <title>My App</title>
+    
+    <title>HealthTrack - Your Health Journey</title>
 </head>
 
 <body>
+    <!-- Accessibility skip link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     {{> _header}}
     {{> _add_btn}}
-    <div class="container">
-        {{{body}}}
-    </div>
     
+    <main id="main-content" class="container">
+        {{{body}}}
+    </main>
+    
+    {{> _footer}}
 
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.21.0/ckeditor.js" integrity="sha512-ff67djVavIxfsnP13CZtuHqf7VyX62ZAObYle+JlObWZvS4/VQkNVaFBOO6eyx2cum8WtiZ0pqyxLCQKC7bjcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/main.js"></script>
-
+    
+    <!-- Register service worker for PWA -->
     <script>
-        M.Sidenav.init(document.querySelector('.sidenav'))
-        M.FormSelect.init(document.querySelector('#category'))
-        M.FormSelect.init(document.querySelector('#status'))
-
-        CKEDITOR.replace('body', {
-            plugins: 'wysiwygarea, toolbar, basicstyles, link'
-        })
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            });
+        }
     </script>
 </body>
 
