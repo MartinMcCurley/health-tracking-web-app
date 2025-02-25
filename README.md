@@ -81,6 +81,37 @@ _Run in production_
 
 npm start
 
+## Deploying to Heroku
+
+Follow these steps to deploy the application to Heroku:
+
+1. Create a Heroku account at [heroku.com](https://heroku.com) if you don't have one
+2. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+3. Login to Heroku from the terminal:
+   ```
+   heroku login
+   ```
+4. Create a new Heroku app:
+   ```
+   heroku create your-app-name
+   ```
+5. Set up environment variables on Heroku:
+   ```
+   heroku config:set NODE_ENV=production
+   heroku config:set GOOGLE_CLIENT_ID=your_google_client_id
+   heroku config:set GOOGLE_CLIENT_SECRET=your_google_client_secret
+   heroku config:set SESSION_SECRET=your_session_secret
+   heroku config:set CALLBACK_URL=https://your-app-name.herokuapp.com/auth/google/callback
+   ```
+6. Deploy your code:
+   ```
+   git push heroku main
+   ```
+7. Open your app:
+   ```
+   heroku open
+   ```
+
 ## Dependencies
 
 connect-nedb-session (version 0.0.3)

@@ -13,9 +13,9 @@ const { attachUser } = require('./middleware/auth');
 const staticPages = require('./routes/staticPages');
 const goalsRoutes = require('./routes/goals');
 
-
 // Load config
-dotenv.config({ path: './config/config.env' });
+dotenv.config(); // Load .env file
+dotenv.config({ path: './config/config.env' }); // Also load config.env for backward compatibility
 
 // Passport config
 require('./config/passport')(passport);
@@ -52,7 +52,7 @@ app.use((req, res, next) => {
 // Sessions
 app.use(
   session({
-    secret: 'keyboard cat',
+    secret: process.env.SESSION_SECRET || 'keyboard cat',
     resave: false,
     saveUninitialized: false,
     store: new NedbStore({ filename: 'sessions.db' }),
