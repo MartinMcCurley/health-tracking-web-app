@@ -12,6 +12,17 @@ router.get("/", ensureGuest, (req, res) => {
     });
 });
 
+// @desc    Debug route for Heroku
+// @route   GET /debug
+router.get("/debug", (req, res) => {
+    res.json({
+        env: process.env.NODE_ENV,
+        authenticated: req.isAuthenticated(),
+        user: req.user,
+        session: req.session
+    });
+});
+
 // @desc    Dashboard
 // @route   GET /dashboard
 router.get("/dashboard", ensureAuth, async (req, res) => {

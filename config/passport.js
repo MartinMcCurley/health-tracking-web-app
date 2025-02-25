@@ -1,7 +1,12 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User');
 const Datastore = require('nedb');
-const db = new Datastore({ filename: 'users.db', autoload: true });
+const path = require('path');
+const db = new Datastore({ 
+  filename: path.join(__dirname, '..', 'users.db'), 
+  autoload: true,
+  inMemoryOnly: process.env.NODE_ENV === 'production' // Use in-memory storage for production (Heroku)
+});
 
 module.exports = function (passport) {
   passport.use(
@@ -12,6 +17,7 @@ module.exports = function (passport) {
         callbackURL: process.env.NODE_ENV === 'production' 
           ? (process.env.CALLBACK_URL || 'https://health-tracking-web-app.herokuapp.com/auth/google/callback')
           : '/auth/google/callback',
+        proxy: true // Trust proxy - needed for Heroku
       },
       async (accessToken, refreshToken, profile, done) => {
         const newUser = {
@@ -39,6 +45,7 @@ module.exports = function (passport) {
           });
         } catch (error) {
           console.error(error);
+          done(error, null);
         }
       }
     )

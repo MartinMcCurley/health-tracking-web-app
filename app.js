@@ -22,6 +22,9 @@ require('./config/passport')(passport);
 
 const app = express();
 
+// Trust proxy - needed for Heroku
+app.set('trust proxy', 1);
+
 // Body parser
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -55,7 +58,14 @@ app.use(
     secret: process.env.SESSION_SECRET || 'keyboard cat',
     resave: false,
     saveUninitialized: false,
-    store: new NedbStore({ filename: 'sessions.db' }),
+    store: new NedbStore({ 
+      filename: path.join(__dirname, 'sessions.db'),
+      inMemoryOnly: process.env.NODE_ENV === 'production' // Use in-memory storage for production (Heroku)
+    }),
+    cookie: {
+      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
+    }
   })
 );
 
