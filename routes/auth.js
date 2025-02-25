@@ -10,10 +10,28 @@ router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 // @route   GET /auth/google/callback
 router.get(
     "/google/callback",
-    passport.authenticate("google", { failureRedirect: "/" }),
-    (req, res) => {
-        console.log("Google auth callback - User authenticated:", req.user ? req.user._id : 'No user');
-        res.redirect("/dashboard");
+    (req, res, next) => {
+        passport.authenticate("google", { failureRedirect: "/" }, (err, user, info) => {
+            if (err) {
+                console.error("Authentication error:", err);
+                return res.redirect("/");
+            }
+            
+            if (!user) {
+                console.error("No user returned from authentication");
+                return res.redirect("/");
+            }
+            
+            req.logIn(user, (err) => {
+                if (err) {
+                    console.error("Login error:", err);
+                    return res.redirect("/");
+                }
+                
+                console.log("Google auth callback - User authenticated:", user._id);
+                return res.redirect("/dashboard");
+            });
+        })(req, res, next);
     }
 );
 

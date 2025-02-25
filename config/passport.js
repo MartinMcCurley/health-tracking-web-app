@@ -15,7 +15,7 @@ module.exports = function (passport) {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.NODE_ENV === 'production' 
-          ? (process.env.CALLBACK_URL || 'https://health-tracking-web-app.herokuapp.com/auth/google/callback')
+          ? (process.env.CALLBACK_URL || 'https://health-tracking-web-app-6e8c4e692779.herokuapp.com/auth/google/callback')
           : '/auth/google/callback',
         proxy: true // Trust proxy - needed for Heroku
       },

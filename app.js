@@ -63,7 +63,8 @@ app.use(
       inMemoryOnly: process.env.NODE_ENV === 'production' // Use in-memory storage for production (Heroku)
     }),
     cookie: {
-      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+      secure: false, // Set to false for now to troubleshoot
+      sameSite: 'lax',
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     }
   })
