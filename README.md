@@ -1,5 +1,203 @@
-# Health Tracking Web App
+# HealthTrack - Health Tracking Web App
+
+![HealthTrack Logo](public/img/favicon.png)
+
+A modern, responsive Progressive Web App (PWA) for tracking health, fitness, and nutrition goals. HealthTrack helps users monitor their progress, set achievable targets, and maintain a healthier lifestyle.
+
 Live version available at: https://health-tracking-web-app.herokuapp.com/
+
+## Features
+
+### Core Functionality
+- **User Authentication**: Secure login via Google OAuth 2.0
+- **Goal Management**: Create, read, update, and delete health goals
+- **Progress Tracking**: Monitor progress towards goals with visual indicators
+- **Dashboard**: Comprehensive overview of health metrics and goal status
+- **Responsive Design**: Optimized for all devices (mobile, tablet, desktop)
+
+### Progressive Web App (PWA) Capabilities
+- **Offline Support**: Access key features even without an internet connection
+- **Installable**: Add to home screen on mobile and desktop devices
+- **Fast Loading**: Optimized caching strategies for quick access
+- **Push Notifications**: Get updates about goal progress (where supported)
+- **Automatic Updates**: Seamless updates when new versions are available
+
+### User Experience Enhancements
+- **Dark/Light Theme**: Toggle between themes based on preference
+- **Animations**: Smooth transitions and visual feedback
+- **Interactive Charts**: Visualize progress with dynamic charts
+- **Toast Notifications**: Non-intrusive feedback for user actions
+- **Accessibility**: Designed with accessibility in mind (keyboard navigation, screen readers)
+
+## Technologies Used
+
+### Frontend
+- **Handlebars**: Templating engine for dynamic content
+- **Materialize CSS**: Modern responsive CSS framework
+- **Chart.js**: Interactive data visualization
+- **Font Awesome**: Icon library
+- **Service Workers**: For PWA functionality and offline support
+
+### Backend
+- **Node.js**: JavaScript runtime
+- **Express**: Web application framework
+- **Passport.js**: Authentication middleware
+- **NeDB**: Lightweight document database
+- **Express Session**: Session management
+
+### Development & Deployment
+- **Git**: Version control
+- **Heroku**: Cloud platform hosting
+- **Nodemon**: Development server with auto-reload
+- **dotenv**: Environment variable management
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v14.x or later)
+- npm (v6.x or later)
+- Google OAuth credentials (for authentication)
+
+### Installation
+
+1. Clone the repository
+   ```
+   git clone https://github.com/yourusername/health-tracking-web-app.git
+   cd health-tracking-web-app
+   ```
+
+2. Install dependencies
+   ```
+   npm install
+   ```
+
+3. Create a `config.env` file in the root directory with the following variables:
+   ```
+   NODE_ENV=development
+   PORT=3000
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   CALLBACK_URL=http://localhost:3000/auth/google/callback
+   SESSION_SECRET=your_session_secret
+   ```
+
+4. Start the development server
+   ```
+   npm run dev
+   ```
+
+5. Open your browser and navigate to `http://localhost:3000`
+
+### Running in Production
+```
+npm start
+```
+
+## Deploying to Heroku
+
+1. Create a Heroku account at [heroku.com](https://heroku.com)
+2. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+3. Login to Heroku from the terminal:
+   ```
+   heroku login
+   ```
+4. Create a new Heroku app:
+   ```
+   heroku create your-app-name
+   ```
+5. Set up environment variables on Heroku:
+   ```
+   heroku config:set NODE_ENV=production
+   heroku config:set GOOGLE_CLIENT_ID=your_google_client_id
+   heroku config:set GOOGLE_CLIENT_SECRET=your_google_client_secret
+   heroku config:set SESSION_SECRET=your_session_secret
+   heroku config:set CALLBACK_URL=https://your-app-name.herokuapp.com/auth/google/callback
+   ```
+6. Deploy your code:
+   ```
+   git push heroku main
+   ```
+7. Open your app:
+   ```
+   heroku open
+   ```
+
+## PWA Features Explained
+
+### Offline Support
+HealthTrack uses service workers to cache important assets and data, allowing users to access previously viewed content even when offline. The app also provides a dedicated offline page with helpful information.
+
+### Installable
+Users can install HealthTrack on their devices by:
+- **Mobile**: Tapping "Add to Home Screen" in their browser menu
+- **Desktop**: Clicking the install icon in the address bar (Chrome, Edge) or using browser menu options
+
+### Caching Strategy
+The app implements a sophisticated caching strategy:
+- **Static Cache**: Core app assets (CSS, JS, images) for immediate loading
+- **Dynamic Cache**: Content viewed by users for offline access
+- **Network-First Strategy**: For fresh data when online, falling back to cache when offline
+
+### Updates
+When a new version of the app is available, users receive a notification allowing them to update immediately or continue using the current version until they're ready to update.
+
+## Project Structure
+
+```
+health-tracking-web-app/
+├── config/                 # Configuration files
+├── helpers/                # Handlebars helpers
+├── middleware/             # Express middleware
+├── models/                 # Database models
+├── public/                 # Static assets
+│   ├── css/                # Stylesheets
+│   ├── img/                # Images
+│   ├── main.js             # Main JavaScript file
+│   ├── service-worker.js   # Service worker for PWA
+│   └── manifest.json       # Web app manifest
+├── routes/                 # Express routes
+├── views/                  # Handlebars templates
+│   ├── layouts/            # Layout templates
+│   ├── partials/           # Reusable template parts
+│   └── *.hbs               # Page templates
+├── app.js                  # Application entry point
+├── package.json            # Dependencies and scripts
+└── README.md               # Project documentation
+```
+
+## Browser Compatibility
+
+HealthTrack is compatible with:
+- Chrome (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Edge (latest 2 versions)
+- Opera (latest 2 versions)
+- iOS Safari (latest 2 versions)
+- Android Chrome (latest 2 versions)
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [Materialize CSS](https://materializecss.com/) for the UI framework
+- [Chart.js](https://www.chartjs.org/) for data visualization
+- [Font Awesome](https://fontawesome.com/) for icons
+- [Google OAuth](https://developers.google.com/identity/protocols/oauth2) for authentication
+
+---
+
+© 2023 HealthTrack. All rights reserved.
 
 ## Project Checklist
 
