@@ -23,7 +23,7 @@ require('./config/passport')(passport);
 const app = express();
 
 // Trust proxy - needed for Heroku
-app.set('trust proxy', 1);
+app.set('trust proxy', true);
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
@@ -63,10 +63,12 @@ app.use(
       inMemoryOnly: process.env.NODE_ENV === 'production' // Use in-memory storage for production (Heroku)
     }),
     cookie: {
-      secure: false, // Set to false for now to troubleshoot
+      secure: process.env.NODE_ENV === 'production', // Only use secure cookies in production
+      httpOnly: true,
       sameSite: 'lax',
       maxAge: 24 * 60 * 60 * 1000 // 1 day
-    }
+    },
+    proxy: true // Trust the reverse proxy when setting secure cookies
   })
 );
 
