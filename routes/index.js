@@ -8,19 +8,22 @@ const router = express.Router();
 // @route   GET /
 router.get("/", ensureGuest, (req, res) => {
     const error = req.query.error;
-    let errorMessage = null;
+    const errorMessage = req.query.message;
+    let displayErrorMessage = null;
     
     if (error === 'auth_error') {
-        errorMessage = 'Authentication error occurred. Please try again.';
+        displayErrorMessage = errorMessage || 'Authentication error occurred. Please try again.';
     } else if (error === 'no_user') {
-        errorMessage = 'No user found. Please try again.';
+        displayErrorMessage = 'No user found. Please try again.';
     } else if (error === 'login_error') {
-        errorMessage = 'Login error occurred. Please try again.';
+        displayErrorMessage = errorMessage || 'Login error occurred. Please try again.';
     }
+    
+    console.log("Rendering login page. Error:", error, "Message:", errorMessage);
     
     res.render("login", {
         layout: "login",
-        error: errorMessage
+        error: displayErrorMessage
     });
 });
 
@@ -31,8 +34,12 @@ router.get("/debug", (req, res) => {
         env: process.env.NODE_ENV,
         authenticated: req.isAuthenticated(),
         user: req.user,
-        session: req.session,
-        cookies: req.cookies
+        session: req.session ? {
+            id: req.session.id,
+            cookie: req.session.cookie
+        } : null,
+        cookies: req.cookies,
+        headers: req.headers
     });
 });
 
@@ -54,7 +61,7 @@ router.get("/dashboard", ensureAuth, async (req, res) => {
             if (err) {
                 console.error("Error fetching goals:", err);
                 return res.render("error/500", {
-                    error: "Failed to fetch goals"
+                    error: "Failed to fetch goals: " + err.message
                 });
             }
             
@@ -73,6 +80,7 @@ router.get("/dashboard", ensureAuth, async (req, res) => {
             
             res.render("dashboard", {
                 name: req.user.firstName,
+                user: req.user, // Pass the entire user object to the template
                 goals,
                 stats,
                 streak,

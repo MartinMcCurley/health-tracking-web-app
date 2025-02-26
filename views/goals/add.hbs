@@ -1,32 +1,39 @@
 <h3>Add Goal</h3>
+
+{{#if error}}
+<div class="card-panel red lighten-4 red-text">
+    {{error}}
+</div>
+{{/if}}
+
 <div class="row">
     <form action="/goals" method="POST" class="col s12">
         <div class="row">
             <div class="input-field">
-                <input type="text" id="title" name="title" />
-                <label for="title">Title</label>
+                <input type="text" id="title" name="title" value="{{formData.title}}" required />
+                <label for="title" class="{{#if formData.title}}active{{/if}}">Title</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field">
-                <input type="date" id="date" name="date" />
-                <label for="date">Date</label>
+                <input type="date" id="date" name="date" value="{{formData.date}}" />
+                <label for="date" class="{{#if formData.date}}active{{/if}}">Date</label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field">
-                <input type="date" id="targetDate" name="targetDate" />
-                <label for="targetDate">Target Date</label>
+                <input type="date" id="targetDate" name="targetDate" value="{{formData.targetDate}}" />
+                <label for="targetDate" class="{{#if formData.targetDate}}active{{/if}}">Target Date</label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field">
                 <select id="category" name="category">
-                    <option value="Health" selected>Health</option>
-                    <option value="Nutrition">Nutrition</option>
-                    <option value="Fitness">Fitness</option>
+                    <option value="Health" {{#if (eq formData.category "Health")}}selected{{/if}}>Health</option>
+                    <option value="Nutrition" {{#if (eq formData.category "Nutrition")}}selected{{/if}}>Nutrition</option>
+                    <option value="Fitness" {{#if (eq formData.category "Fitness")}}selected{{/if}}>Fitness</option>
                 </select>
                 <label for="category">Category</label>
             </div>
@@ -35,8 +42,8 @@
         <div class="row">
             <div class="input-field">
                 <select id="status" name="status">
-                    <option value="active" selected>Active</option>
-                    <option value="complete">Complete</option>
+                    <option value="active" {{#if (eq formData.status "active")}}selected{{/if}}>Active</option>
+                    <option value="complete" {{#if (eq formData.status "complete")}}selected{{/if}}>Complete</option>
                 </select>
                 <label for="status">Status</label>
             </div>
@@ -45,7 +52,7 @@
         <div class="row">
             <div class="input-field">
                 <h5>What is your goal:</h5>
-                <textarea id="body" name="body"></textarea>
+                <textarea id="body" name="body">{{formData.body}}</textarea>
             </div>
         </div>
 
@@ -55,3 +62,24 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Materialize components
+        M.FormSelect.init(document.querySelectorAll('select'));
+        
+        // Initialize CKEditor if it exists
+        if (CKEDITOR) {
+            CKEDITOR.replace('body', {
+                plugins: 'wysiwygarea, toolbar, basicstyles, link, list, format, table',
+                toolbar: [
+                    { name: 'styles', items: ['Format'] },
+                    { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike'] },
+                    { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
+                    { name: 'links', items: ['Link', 'Unlink'] },
+                    { name: 'insert', items: ['Table'] }
+                ]
+            });
+        }
+    });
+</script>

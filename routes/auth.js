@@ -6,9 +6,16 @@ const router = express.Router();
 // @route   GET /auth/google
 router.get("/google", (req, res, next) => {
     console.log("Starting Google authentication process");
+    
+    // Clear any existing session to prevent conflicts
+    if (req.session) {
+        req.session.destroy();
+    }
+    
     passport.authenticate("google", { 
         scope: ["profile"],
-        prompt: "select_account" // Force Google to show the account selection screen
+        prompt: "select_account", // Force Google to show the account selection screen
+        accessType: "online"
     })(req, res, next);
 });
 
@@ -18,11 +25,12 @@ router.get(
     "/google/callback",
     (req, res, next) => {
         console.log("Google callback received, authenticating...");
+        console.log("Request headers:", JSON.stringify(req.headers, null, 2));
         
-        passport.authenticate("google", { failureRedirect: "/" }, (err, user, info) => {
+        passport.authenticate("google", { failureRedirect: "/?error=auth_error" }, (err, user, info) => {
             if (err) {
                 console.error("Authentication error:", err);
-                return res.redirect("/?error=auth_error");
+                return res.redirect("/?error=auth_error&message=" + encodeURIComponent(err.message || "Unknown error"));
             }
             
             if (!user) {
@@ -33,7 +41,7 @@ router.get(
             req.logIn(user, (err) => {
                 if (err) {
                     console.error("Login error:", err);
-                    return res.redirect("/?error=login_error");
+                    return res.redirect("/?error=login_error&message=" + encodeURIComponent(err.message || "Unknown error"));
                 }
                 
                 console.log("Google auth callback - User authenticated:", user._id);
@@ -61,7 +69,33 @@ router.get("/logout", (req, res, next) => {
             console.error("Logout error:", err);
             return next(err); 
         }
-        res.redirect("/");
+        // Clear the session
+        req.session.destroy((err) => {
+            if (err) {
+                console.error("Session destruction error:", err);
+            }
+            // Clear auth cookies
+            res.clearCookie('connect.sid');
+            res.clearCookie('auth_success');
+            res.redirect("/");
+        });
+    });
+});
+
+// @desc    Debug auth status
+// @route   GET /auth/status
+router.get("/status", (req, res) => {
+    res.json({
+        authenticated: req.isAuthenticated(),
+        user: req.user ? {
+            id: req.user._id,
+            displayName: req.user.displayName,
+            firstName: req.user.firstName
+        } : null,
+        session: req.session ? {
+            id: req.session.id,
+            cookie: req.session.cookie
+        } : null
     });
 });
 

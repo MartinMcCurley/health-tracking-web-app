@@ -1,0 +1,50 @@
+2025-02-26T12:33:30.224699+00:00 heroku[web.1]: State changed from up to starting
+2025-02-26T12:33:31.063043+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2025-02-26T12:33:31.127952+00:00 heroku[web.1]: Process exited with status 143
+2025-02-26T12:33:32.201345+00:00 heroku[web.1]: Starting process with command `node app.js`
+2025-02-26T12:33:32.957879+00:00 app[web.1]: Server running in production mode on port 41881
+2025-02-26T12:33:33.304367+00:00 heroku[web.1]: State changed from starting to up
+2025-02-26T12:33:36.507499+00:00 app[api]: Set CALLBACK_URL config vars by user martin.mccurley@gmail.com
+2025-02-26T12:33:36.507499+00:00 app[api]: Release v12 created by user martin.mccurley@gmail.com
+2025-02-26T12:33:38.724503+00:00 heroku[web.1]: Restarting
+2025-02-26T12:33:38.772388+00:00 heroku[web.1]: State changed from up to starting
+2025-02-26T12:33:39.409922+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2025-02-26T12:33:39.478682+00:00 heroku[web.1]: Process exited with status 143
+2025-02-26T12:33:40.693958+00:00 heroku[web.1]: Starting process with command `node app.js`
+2025-02-26T12:33:41.368098+00:00 app[web.1]: Server running in production mode on port 7069
+2025-02-26T12:33:41.896756+00:00 heroku[web.1]: State changed from starting to up
+2025-02-26T12:33:51.695939+00:00 heroku[router]: at=info method=GET path="/service-worker.js" host=health-tracking-web-app-6e8c4e692779.herokuapp.com request_id=526a2ecf-1105-4619-b16d-2251d126728a fwd="209.35.83.26" dyno=web.1 connect=0ms service=7ms status=304 bytes=237 protocol=https
+2025-02-26T12:33:57.987509+00:00 app[api]: Set GOOGLE_CLIENT_ID config vars by user martin.mccurley@gmail.com
+2025-02-26T12:33:57.987509+00:00 app[api]: Release v13 created by user martin.mccurley@gmail.com
+2025-02-26T12:33:59.115432+00:00 heroku[web.1]: Restarting
+2025-02-26T12:33:59.163623+00:00 heroku[web.1]: State changed from up to starting
+2025-02-26T12:33:59.825421+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2025-02-26T12:33:59.884788+00:00 heroku[web.1]: Process exited with status 143
+2025-02-26T12:34:01.116381+00:00 heroku[web.1]: Starting process with command `node app.js`
+2025-02-26T12:34:01.878476+00:00 app[web.1]: Server running in production mode on port 49269
+2025-02-26T12:34:02.286831+00:00 heroku[web.1]: State changed from starting to up
+2025-02-26T12:34:04.992610+00:00 app[api]: Set GOOGLE_CLIENT_SECRET config vars by user martin.mccurley@gmail.com
+2025-02-26T12:34:04.992610+00:00 app[api]: Release v14 created by user martin.mccurley@gmail.com
+2025-02-26T12:34:06.347071+00:00 heroku[web.1]: Restarting
+2025-02-26T12:34:06.396279+00:00 heroku[web.1]: State changed from up to starting
+2025-02-26T12:34:07.055517+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2025-02-26T12:34:07.111590+00:00 heroku[web.1]: Process exited with status 143
+2025-02-26T12:34:08.447048+00:00 heroku[web.1]: Starting process with command `node app.js`
+2025-02-26T12:34:09.215337+00:00 app[web.1]: Server running in production mode on port 27902
+2025-02-26T12:34:09.637452+00:00 heroku[web.1]: State changed from starting to up
+2025-02-26T12:35:41.000000+00:00 app[api]: Build started by user martin.mccurley@gmail.com
+2025-02-26T12:36:02.912435+00:00 app[api]: Release v15 created by user martin.mccurley@gmail.com
+2025-02-26T12:36:02.912435+00:00 app[api]: Deploy c18561e0 by user martin.mccurley@gmail.com
+2025-02-26T12:36:03.000000+00:00 app[api]: Build succeeded
+2025-02-26T12:36:04.105354+00:00 heroku[web.1]: Restarting
+2025-02-26T12:36:04.154173+00:00 heroku[web.1]: State changed from up to starting
+2025-02-26T12:36:04.974450+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2025-02-26T12:36:05.048773+00:00 heroku[web.1]: Process exited with status 143
+2025-02-26T12:36:06.084752+00:00 heroku[web.1]: Starting process with command `node app.js`
+2025-02-26T12:36:06.764302+00:00 app[web.1]: Configuring Google OAuth with:
+2025-02-26T12:36:06.764633+00:00 app[web.1]: - Client ID: Set
+2025-02-26T12:36:06.764663+00:00 app[web.1]: - Client Secret: Set
+2025-02-26T12:36:06.764693+00:00 app[web.1]: - Callback URL: https://health-tracking-web-app-6e8c4e692779.herokuapp.com/auth/google/callback
+2025-02-26T12:36:06.764711+00:00 app[web.1]: - Environment: production
+2025-02-26T12:36:06.780358+00:00 app[web.1]: Server running in production mode on port 44163
+2025-02-26T12:36:07.305896+00:00 heroku[web.1]: State changed from starting to up

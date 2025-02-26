@@ -23,7 +23,7 @@ require('./config/passport')(passport);
 const app = express();
 
 // Trust proxy - needed for Heroku
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
@@ -35,10 +35,27 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Handlebars helpers
-const { formatDate, stripTags, truncate, select } = require('./helpers/hbs');
+const { formatDate, stripTags, truncate, select, eq, neq, lt, gt, lte, gte, and, or } = require('./helpers/hbs');
 
 // Handlebars
-app.engine('.hbs', exphbs.engine({ helpers: { formatDate, stripTags, truncate, select }, defaultLayout: 'main', extname: '.hbs', }));
+app.engine('.hbs', exphbs.engine({ 
+  helpers: { 
+    formatDate, 
+    stripTags, 
+    truncate, 
+    select,
+    eq,
+    neq,
+    lt,
+    gt,
+    lte,
+    gte,
+    and,
+    or
+  }, 
+  defaultLayout: 'main', 
+  extname: '.hbs', 
+}));
 app.set('view engine', '.hbs');
 
 // Set up NeDB
@@ -60,11 +77,10 @@ app.use(
     saveUninitialized: false,
     store: new NedbStore({ 
       filename: path.join(__dirname, 'sessions.db'),
-      inMemoryOnly: process.env.NODE_ENV === 'production' // Use in-memory storage for production (Heroku)
+      inMemoryOnly: false // Changed to false to persist sessions across restarts
     }),
     cookie: {
       secure: process.env.NODE_ENV === 'production', // Only use secure cookies in production
-      httpOnly: true,
       sameSite: 'lax',
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     },

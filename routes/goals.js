@@ -14,13 +14,38 @@ router.get("/add", ensureAuth, (req, res) => {
 // @route   POST /goals
 router.post("/", ensureAuth, async (req, res) => {
     try {
-        req.body.user = req.user._id;
-        console.log(req.body.createdAt);
+        console.log("Creating new goal for user:", req.user._id);
+        console.log("Goal data:", JSON.stringify(req.body));
+        
+        if (!req.db) {
+            console.error("Database not available in request");
+            return res.render("error/500", {
+                error: "Database connection error"
+            });
+        }
+        
+        // Validate required fields
+        if (!req.body.title) {
+            return res.render("goals/add", {
+                error: "Title is required",
+                formData: req.body
+            });
+        }
+        
+        // Add user ID and creation date
+        const goalData = {
+            ...req.body,
+            user: req.user._id,
+            createdAt: new Date()
+        };
+        
         await new Promise((resolve, reject) => {
-            req.db.insert(req.body, (err, newDoc) => {
+            req.db.insert(goalData, (err, newDoc) => {
                 if (err) {
+                    console.error("Error inserting goal:", err);
                     reject(err);
                 } else {
+                    console.log("Goal created successfully:", newDoc._id);
                     resolve(newDoc);
                 }
             });
@@ -28,8 +53,11 @@ router.post("/", ensureAuth, async (req, res) => {
 
         res.redirect("/dashboard");
     } catch (err) {
-        console.error(err);
-        res.render("error/500");
+        console.error("Exception in goal creation:", err);
+        res.render("error/500", {
+            error: "Failed to create goal: " + err.message,
+            formData: req.body
+        });
     }
 });
 

@@ -5,7 +5,7 @@ const path = require('path');
 const db = new Datastore({ 
   filename: path.join(__dirname, '..', 'users.db'), 
   autoload: true,
-  inMemoryOnly: process.env.NODE_ENV === 'production' // Use in-memory storage for production (Heroku)
+  inMemoryOnly: false // Changed to false to persist users across restarts
 });
 
 module.exports = function (passport) {
@@ -30,12 +30,18 @@ module.exports = function (passport) {
       async (accessToken, refreshToken, profile, done) => {
         console.log('Google OAuth callback received for profile:', profile.id);
         
+        if (!profile || !profile.id) {
+          console.error('Invalid profile received from Google OAuth');
+          return done(new Error('Invalid profile received from Google OAuth'), null);
+        }
+        
         const newUser = {
           googleId: profile.id,
-          displayName: profile.displayName,
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
-          image: profile.photos[0].value,
+          displayName: profile.displayName || 'Unknown User',
+          firstName: profile.name?.givenName || 'Unknown',
+          lastName: profile.name?.familyName || 'User',
+          image: profile.photos?.[0]?.value || '',
+          createdAt: new Date()
         };
 
         try {
@@ -46,9 +52,19 @@ module.exports = function (passport) {
             }
 
             if (user) {
-              // User exists
+              // User exists - update last login time
               console.log('Existing user found:', user._id);
-              done(null, user);
+              db.update(
+                { _id: user._id },
+                { $set: { lastLogin: new Date() } },
+                {},
+                (updateErr) => {
+                  if (updateErr) {
+                    console.error('Error updating user login time:', updateErr);
+                  }
+                  done(null, user);
+                }
+              );
             } else {
               // Create new user
               console.log('Creating new user for:', profile.displayName);
