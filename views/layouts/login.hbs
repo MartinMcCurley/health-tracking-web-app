@@ -1,25 +1,41 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        />
+        <meta name="description" content="HealthTrack - Login to track your fitness, nutrition, and health goals" />
+        <meta name="theme-color" content="#4361ee" />
+        
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="/img/favicon.png" />
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="/css/style.css" />
-        <title>My App Login</title>
+        
+        <title>HealthTrack - Login</title>
+        
+        <!-- Error handling script -->
+        <script>
+            // Function to handle script loading errors
+            function handleScriptError(scriptSrc) {
+                console.error('Failed to load script:', scriptSrc);
+                document.addEventListener('DOMContentLoaded', function() {
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'card-panel red lighten-4 red-text';
+                    errorMsg.innerHTML = '<strong>Warning:</strong> Some resources failed to load. Please try refreshing the page.';
+                    document.querySelector('.login-container').insertBefore(errorMsg, document.querySelector('.card'));
+                });
+            }
+        </script>
     </head>
 
     <body>
         <div class="container login-container">
+            <!-- Error message container -->
+            <div id="error-container"></div>
+            
             <div class="card">
                 <div class="card-content">
                     {{{body}}}
@@ -27,9 +43,56 @@
             </div>
         </div>
 
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
-        ></script>
+        <!-- Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" onerror="handleScriptError('materialize.min.js')"></script>
+        
+        <!-- Error handling -->
+        <script>
+            // Handle page errors
+            window.addEventListener('error', function(e) {
+                console.error('Global error caught:', e.message);
+                // Only show the error message once
+                if (!document.querySelector('#error-message')) {
+                    const errorContainer = document.getElementById('error-container');
+                    if (errorContainer) {
+                        const errorMsg = document.createElement('div');
+                        errorMsg.id = 'error-message';
+                        errorMsg.className = 'card-panel red lighten-4 red-text';
+                        errorMsg.innerHTML = '<strong>Warning:</strong> An error occurred. Try refreshing the page. <button class="btn-small red right" onclick="location.reload()">Refresh</button>';
+                        errorContainer.appendChild(errorMsg);
+                    }
+                }
+            });
+            
+            // Check for error parameter in URL
+            document.addEventListener('DOMContentLoaded', function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const error = urlParams.get('error');
+                const message = urlParams.get('message');
+                
+                if (error) {
+                    console.log('Error detected in URL:', error, message);
+                    // Error is already displayed in the template, but we log it here
+                }
+            });
+        </script>
+        
+        <style>
+            .login-container {
+                margin-top: 50px;
+                max-width: 700px;
+            }
+            
+            #error-message {
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            #error-message button {
+                margin-left: 1rem;
+            }
+        </style>
     </body>
-
 </html>

@@ -3,11 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="HealthTrack - Track your fitness, nutrition, and health goals with our comprehensive health tracking platform">
     <meta name="theme-color" content="#4361ee">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HealthTrack">
     <meta name="format-detection" content="telephone=no">
     
     <!-- Open Graph / Social Media Meta Tags -->
@@ -25,6 +26,17 @@
     
     <!-- PWA support -->
     <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/img/favicon.png">
+    
+    <!-- Apple splash screens -->
+    <link rel="apple-touch-startup-image" href="/img/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/img/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+    <link rel="apple-touch-startup-image" href="/img/splash-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/img/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+    <link rel="apple-touch-startup-image" href="/img/splash-1536x2048.png" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-device-pixel-ratio: 2)">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/img/favicon.png">
@@ -40,6 +52,23 @@
     <link rel="stylesheet" href="/css/style.css">
     
     <title>HealthTrack - Your Health Journey</title>
+    
+    <!-- Critical scripts that need to be loaded before body -->
+    <script>
+        // Function to handle script loading errors
+        function handleScriptError(scriptSrc) {
+            console.error('Failed to load script:', scriptSrc);
+            // Add a message to the page if it's a critical script
+            if (scriptSrc.includes('materialize')) {
+                document.addEventListener('DOMContentLoaded', function() {
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'card-panel red lighten-4 red-text';
+                    errorMsg.innerHTML = '<strong>Warning:</strong> Some resources failed to load. Please try refreshing the page.';
+                    document.body.insertBefore(errorMsg, document.body.firstChild);
+                });
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -59,6 +88,9 @@
     
     <!-- Main content -->
     <main id="main-content" class="container">
+        <!-- Error message container for script loading issues -->
+        <div id="error-container"></div>
+        
         <!-- Page title section (optional) -->
         {{#if pageTitle}}
         <div class="page-title-section animate-on-scroll">
@@ -77,8 +109,16 @@
     {{> _footer}}
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.21.0/ckeditor.js" integrity="sha512-ff67djVavIxfsnP13CZtuHqf7VyX62ZAObYle+JlObWZvS4/VQkNVaFBOO6eyx2cum8WtiZ0pqyxLCQKC7bjcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Load Materialize first as it's required by other scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" onerror="handleScriptError('materialize.min.js')"></script>
+    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" onerror="handleScriptError('chart.js')"></script>
+    
+    <!-- CKEditor for rich text editing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.21.0/ckeditor.js" integrity="sha512-ff67djVavIxfsnP13CZtuHqf7VyX62ZAObYle+JlObWZvS4/VQkNVaFBOO6eyx2cum8WtiZ0pqyxLCQKC7bjcg==" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="handleScriptError('ckeditor.js')"></script>
+    
+    <!-- Our main JavaScript file -->
     <script src="/main.js"></script>
     
     <!-- Register service worker for PWA -->
@@ -92,6 +132,22 @@
                 navigator.serviceWorker.register('/service-worker.js')
                     .then(reg => console.log('Service Worker registered'))
                     .catch(err => console.log('Service Worker registration failed: ', err));
+            }
+        });
+        
+        // Handle page errors
+        window.addEventListener('error', function(e) {
+            console.error('Global error caught:', e.message);
+            // Only show the error message once
+            if (!document.querySelector('#error-message')) {
+                const errorContainer = document.getElementById('error-container');
+                if (errorContainer) {
+                    const errorMsg = document.createElement('div');
+                    errorMsg.id = 'error-message';
+                    errorMsg.className = 'card-panel red lighten-4 red-text';
+                    errorMsg.innerHTML = '<strong>Warning:</strong> An error occurred. Try refreshing the page. <button class="btn-small red right" onclick="location.reload()">Refresh</button>';
+                    errorContainer.appendChild(errorMsg);
+                }
             }
         });
     </script>
@@ -136,6 +192,34 @@
             color: var(--text-light-color);
             font-size: 1.1rem;
             max-width: 800px;
+        }
+        
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 10000;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Error message styles */
+        #error-message {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        #error-message button {
+            margin-left: 1rem;
         }
     </style>
 </body>
