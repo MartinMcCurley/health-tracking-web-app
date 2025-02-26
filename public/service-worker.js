@@ -7,7 +7,7 @@ const urlsToCache = [
   '/img/favicon.png',
   'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js',
-  'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap',
+  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
 
@@ -18,6 +18,9 @@ self.addEventListener('install', event => {
       .then(cache => {
         console.log('Opened cache');
         return cache.addAll(urlsToCache);
+      })
+      .catch(error => {
+        console.error('Service worker installation failed:', error);
       })
   );
 });
@@ -51,8 +54,8 @@ self.addEventListener('fetch', event => {
         // Clone the request
         const fetchRequest = event.request.clone();
         
-        return fetch(fetchRequest).then(
-          response => {
+        return fetch(fetchRequest)
+          .then(response => {
             // Check if valid response
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
@@ -70,8 +73,11 @@ self.addEventListener('fetch', event => {
               });
               
             return response;
-          }
-        );
+          })
+          .catch(error => {
+            console.log('Fetch failed:', error);
+            // You can return a custom offline page here
+          });
       })
   );
 }); 
