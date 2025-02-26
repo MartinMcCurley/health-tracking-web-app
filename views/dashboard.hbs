@@ -1,73 +1,372 @@
-<h6>Dashboard</h6>
-<h3>Welcome, {{name}}</h3>
-<p>Here are your goals!</p>
-{{#if goals}}
-    <table class="striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Start Date</th>
-                <th>Target Date</th>
-                <th>Category</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each goals}}
-                <tr>
-                    <td><a href="/goals/{{_id}}">{{title}}</a></td>
-                    <td>{{date}}</td>
-                    <td>{{targetDate}}</td>
-                    <td><span class="dash-status">{{category}}</span></td>
-                    <td><span class="dash-status">{{status}}</span></td>
-                    <td>
-                        <div class="action-buttons">
-                            <a href="/goals/edit/{{_id}}" class="btn btn-float">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <button
-                                class="btn red modal-trigger"
-                                data-target="delete-modal-{{_id}}"
-                            >
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                        <div
-                            id="delete-modal-{{_id}}"
-                            class="modal rounded-modal"
-                        >
-                            <div class="modal-content">
-                                <h4>Delete Goal Confirmation</h4>
-                                <p>Are you sure you want to delete this goal?</p>
+<!-- Dashboard Header with User Welcome -->
+<div class="dashboard-header animate-on-scroll">
+    <div class="row">
+        <div class="col s12 m8">
+            <h1>Welcome, {{user.firstName}}!</h1>
+            <p class="dashboard-subtitle">Here's an overview of your health journey</p>
+        </div>
+        <div class="col s12 m4 hide-on-small-only">
+            <div class="date-display">
+                <div class="current-date">{{formatDate date 'dddd, MMMM Do'}}</div>
+                <div class="streak-counter"><i class="fas fa-fire"></i> <span>{{streak}} day streak</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Overview Cards -->
+<div class="stats-container">
+    <!-- Active Goals Card -->
+    <div class="stat-card animate-on-scroll">
+        <i class="fas fa-bullseye"></i>
+        <div class="stat-value counter" data-target="{{stats.activeGoals}}">0</div>
+        <div class="stat-label">Active Goals</div>
+    </div>
+    
+    <!-- Completed Goals Card -->
+    <div class="stat-card success animate-on-scroll">
+        <i class="fas fa-check-circle"></i>
+        <div class="stat-value counter" data-target="{{stats.completedGoals}}">0</div>
+        <div class="stat-label">Completed Goals</div>
+    </div>
+    
+    <!-- Fitness Card -->
+    <div class="stat-card fitness animate-on-scroll">
+        <i class="fas fa-running"></i>
+        <div class="stat-value counter" data-target="{{stats.fitnessScore}}">0</div>
+        <div class="stat-label">Fitness Score</div>
+    </div>
+    
+    <!-- Nutrition Card -->
+    <div class="stat-card nutrition animate-on-scroll">
+        <i class="fas fa-apple-alt"></i>
+        <div class="stat-value counter" data-target="{{stats.nutritionScore}}">0</div>
+        <div class="stat-label">Nutrition Score</div>
+    </div>
+</div>
+
+<!-- Weekly Progress Chart -->
+<div class="card animate-on-scroll">
+    <div class="card-content">
+        <span class="card-title"><i class="fas fa-chart-line"></i> Weekly Progress</span>
+        <div class="weekly-chart-container">
+            <canvas id="weeklyProgressChart" height="250"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Goals Section -->
+<div class="row">
+    <!-- Recent Goals -->
+    <div class="col s12 l8">
+        <div class="card animate-on-scroll">
+            <div class="card-content">
+                <div class="card-header d-flex justify-between align-center">
+                    <span class="card-title"><i class="fas fa-list"></i> Recent Goals</span>
+                    <a href="/goals" class="btn-flat">View All</a>
+                </div>
+                
+                {{#if goals}}
+                <div class="goal-list">
+                    {{#each goals}}
+                    <div class="goal-body-box {{this.category}} goal-item" data-status="{{this.status}}" data-category="{{this.category}}" data-progress="{{this.progress}}">
+                        <div class="d-flex justify-between align-center mb-2">
+                            <div>
+                                <span class="badge {{this.category}}">{{this.category}}</span>
+                                <span class="due-date"><i class="fas fa-calendar-alt"></i> {{formatDate this.dueDate 'MMM Do'}}</span>
                             </div>
-                            <div class="modal-footer">
-                                <form
-                                    action="/goals/delete/{{_id}}"
-                                    method="POST"
-                                    id="delete-form"
-                                >
-                                    <input
-                                        type="hidden"
-                                        name="_method"
-                                        value="DELETE"
-                                    />
-                                    <button
-                                        type="submit"
-                                        class="modal-close waves-effect waves-green btn-flat"
-                                    >Yes, delete it</button>
+                            <div class="action-buttons">
+                                <a href="/goals/edit/{{this._id}}" class="btn-small btn-flat action-btn" data-action="edit"><i class="fas fa-edit"></i></a>
+                                <form action="/goals/{{this._id}}" method="POST" class="delete-form">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn-small btn-flat action-btn" data-action="delete"><i class="fas fa-trash-alt"></i></button>
                                 </form>
-                                <button
-                                    type="button"
-                                    class="modal-close waves-effect waves-red btn-flat"
-                                >Cancel</button>
                             </div>
                         </div>
-                    </td>
-                </tr>
-            {{/each}}
-        </tbody>
-    </table>
-{{else}}
-    <p>You have no goals, add some by clicking the big button on the bottom right of the screen!!</p>
-{{/if}}
+                        <h5>{{this.title}}</h5>
+                        <p>{{truncate this.body 100}}</p>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <div class="no-goals-message">
+                    <p>You haven't set any goals yet.</p>
+                    <a href="/goals/add" class="btn mt-3"><i class="fas fa-plus"></i> Add Your First Goal</a>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Upcoming Events & Tips -->
+    <div class="col s12 l4">
+        <!-- Upcoming Events -->
+        <div class="card animate-on-scroll">
+            <div class="card-content">
+                <span class="card-title"><i class="fas fa-calendar"></i> Upcoming</span>
+                
+                <ul class="upcoming-list">
+                    <li class="upcoming-item">
+                        <div class="upcoming-date">
+                            <span class="day">15</span>
+                            <span class="month">Jun</span>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6>Weekly Weigh-in</h6>
+                            <p>Track your progress</p>
+                        </div>
+                    </li>
+                    <li class="upcoming-item">
+                        <div class="upcoming-date">
+                            <span class="day">18</span>
+                            <span class="month">Jun</span>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6>Fitness Assessment</h6>
+                            <p>Measure your improvements</p>
+                        </div>
+                    </li>
+                    <li class="upcoming-item">
+                        <div class="upcoming-date">
+                            <span class="day">20</span>
+                            <span class="month">Jun</span>
+                        </div>
+                        <div class="upcoming-details">
+                            <h6>Nutrition Review</h6>
+                            <p>Analyze your eating habits</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Health Tips -->
+        <div class="card animate-on-scroll">
+            <div class="card-content">
+                <span class="card-title"><i class="fas fa-lightbulb"></i> Health Tip</span>
+                <div class="tip-content">
+                    <p>"Staying hydrated is crucial for overall health. Aim to drink at least 8 glasses of water daily to maintain energy levels and support bodily functions."</p>
+                </div>
+                <div class="tip-footer">
+                    <button class="btn-flat refresh-tip"><i class="fas fa-sync-alt"></i> New Tip</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .dashboard-header {
+        margin: 2rem 0 3rem;
+    }
+    
+    .dashboard-subtitle {
+        color: var(--text-light-color);
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+    }
+    
+    .date-display {
+        background-color: var(--card-background);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 20px var(--shadow-color);
+        text-align: center;
+    }
+    
+    .current-date {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .streak-counter {
+        color: var(--accent-color);
+        font-weight: 500;
+    }
+    
+    .streak-counter i {
+        margin-right: 5px;
+    }
+    
+    .stat-card.success i {
+        color: var(--success-color);
+    }
+    
+    .stat-card.fitness i {
+        color: var(--accent-color);
+    }
+    
+    .stat-card.nutrition i {
+        color: var(--success-color);
+    }
+    
+    .weekly-chart-container {
+        margin-top: 1.5rem;
+    }
+    
+    .card-header {
+        margin-bottom: 1.5rem;
+    }
+    
+    .due-date {
+        font-size: 0.9rem;
+        color: var(--text-light-color);
+        margin-left: 0.5rem;
+    }
+    
+    .no-goals-message {
+        text-align: center;
+        padding: 3rem 0;
+        color: var(--text-light-color);
+    }
+    
+    .upcoming-list {
+        margin: 1.5rem 0 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    .upcoming-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--divider-color);
+    }
+    
+    .upcoming-item:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+    
+    .upcoming-date {
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 8px;
+        padding: 0.5rem;
+        min-width: 60px;
+        text-align: center;
+        margin-right: 1rem;
+    }
+    
+    .upcoming-date .day {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+    }
+    
+    .upcoming-date .month {
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-top: 0.25rem;
+    }
+    
+    .upcoming-details h6 {
+        margin: 0 0 0.25rem;
+        font-size: 1rem;
+    }
+    
+    .upcoming-details p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--text-light-color);
+    }
+    
+    .tip-content {
+        background-color: rgba(67, 97, 238, 0.05);
+        border-left: 4px solid var(--primary-color);
+        padding: 1rem;
+        border-radius: 0 8px 8px 0;
+        margin: 1rem 0;
+        font-style: italic;
+    }
+    
+    .tip-footer {
+        text-align: right;
+    }
+    
+    .refresh-tip i {
+        margin-right: 5px;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize weekly progress chart
+        const ctx = document.getElementById('weeklyProgressChart').getContext('2d');
+        
+        // Sample data - replace with actual data from your backend
+        const weeklyChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: 'Fitness',
+                        data: [65, 70, 68, 75, 80, 82, 85],
+                        borderColor: '#f72585',
+                        backgroundColor: 'rgba(247, 37, 133, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Nutrition',
+                        data: [70, 75, 80, 78, 82, 85, 88],
+                        borderColor: '#4cc9a0',
+                        backgroundColor: 'rgba(76, 201, 160, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+        
+        // Health tip refresh functionality
+        const tips = [
+            "Staying hydrated is crucial for overall health. Aim to drink at least 8 glasses of water daily to maintain energy levels and support bodily functions.",
+            "Regular physical activity can boost your mood by releasing endorphins, the body's natural feel-good chemicals.",
+            "Aim for 7-9 hours of quality sleep each night to support mental clarity, emotional stability, and physical health.",
+            "Include a variety of colorful fruits and vegetables in your diet to ensure you're getting a wide range of nutrients.",
+            "Taking short breaks during long periods of sitting can help reduce the negative health effects of sedentary behavior."
+        ];
+        
+        const refreshTipBtn = document.querySelector('.refresh-tip');
+        const tipContent = document.querySelector('.tip-content p');
+        
+        if (refreshTipBtn && tipContent) {
+            refreshTipBtn.addEventListener('click', function() {
+                let newTip;
+                do {
+                    newTip = tips[Math.floor(Math.random() * tips.length)];
+                } while (newTip === tipContent.textContent);
+                
+                // Fade out, change text, fade in
+                tipContent.style.opacity = 0;
+                setTimeout(() => {
+                    tipContent.textContent = newTip;
+                    tipContent.style.opacity = 1;
+                }, 300);
+            });
+        }
+    });
+</script>

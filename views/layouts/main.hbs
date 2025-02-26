@@ -4,8 +4,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Health Tracking Web App - Track your fitness, nutrition, and health goals">
-    <meta name="theme-color" content="#1e88e5">
+    <meta name="description" content="HealthTrack - Track your fitness, nutrition, and health goals with our comprehensive health tracking platform">
+    <meta name="theme-color" content="#4361ee">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="HealthTrack - Your Health Journey">
+    <meta property="og:description" content="Track your fitness, nutrition, and health goals with our comprehensive health tracking platform">
+    <meta property="og:image" content="/img/og-image.jpg">
+    <meta property="og:url" content="https://healthtrack.example.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HealthTrack - Your Health Journey">
+    <meta name="twitter:description" content="Track your fitness, nutrition, and health goals with our comprehensive health tracking platform">
+    <meta name="twitter:image" content="/img/og-image.jpg">
     
     <!-- PWA support -->
     <link rel="manifest" href="/manifest.json">
@@ -13,10 +29,16 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/style.css">
     
@@ -27,13 +49,34 @@
     <!-- Accessibility skip link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
+    <!-- Page loader -->
+    <div class="page-loader">
+        <div class="loader-spinner"></div>
+    </div>
+    
+    <!-- Header -->
     {{> _header}}
+    
+    <!-- Add button (if needed) -->
     {{> _add_btn}}
     
+    <!-- Main content -->
     <main id="main-content" class="container">
+        <!-- Page title section (optional) -->
+        {{#if pageTitle}}
+        <div class="page-title-section animate-on-scroll">
+            <h1>{{pageTitle}}</h1>
+            {{#if pageDescription}}
+            <p class="page-description">{{pageDescription}}</p>
+            {{/if}}
+        </div>
+        {{/if}}
+        
+        <!-- Main content from views -->
         {{{body}}}
     </main>
     
+    <!-- Footer -->
     {{> _footer}}
 
     <!-- Scripts -->
@@ -43,14 +86,61 @@
     
     <!-- Register service worker for PWA -->
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
+        // Hide page loader when page is loaded
+        window.addEventListener('load', function() {
+            document.querySelector('.page-loader').style.display = 'none';
+            
+            // Register service worker
+            if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/service-worker.js')
                     .then(reg => console.log('Service Worker registered'))
                     .catch(err => console.log('Service Worker registration failed: ', err));
-            });
-        }
+            }
+        });
     </script>
+    
+    <style>
+        /* Page loader styles */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(67, 97, 238, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Page title section styles */
+        .page-title-section {
+            margin: 2rem 0;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .page-description {
+            color: var(--text-light-color);
+            font-size: 1.1rem;
+            max-width: 800px;
+        }
+    </style>
 </body>
 
 </html>

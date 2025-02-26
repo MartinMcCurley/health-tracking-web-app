@@ -1,6 +1,8 @@
-<nav class="">
+<nav class="nav-extended">
     <div class="nav-wrapper container">
-        <a href="/dashboard" class="brand-logo left">HealthTrack</a>
+        <a href="/dashboard" class="brand-logo left">
+            <i class="fas fa-heartbeat mr-2"></i> HealthTrack
+        </a>
         
         <!-- Theme toggle switch -->
         <div class="right hide-on-small-only">
@@ -27,51 +29,66 @@
             <li><a href="/goals" class="tooltipped" data-position="bottom" data-tooltip="View your achievements"><i class="fas fa-trophy"></i> Achievements</a></li>
             <li><a href="/auth/logout" class="tooltipped" data-position="bottom" data-tooltip="Sign out"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
-        
-        <!-- Goals dropdown -->
-        <ul id="goals-dropdown" class="dropdown-content">
-            <li><a href="/goals/fitnessGoals"><i class="fas fa-running"></i> Fitness Goals</a></li>
-            <li><a href="/goals/nutritionGoals"><i class="fas fa-apple-alt"></i> Nutrition Goals</a></li>
-            <li><a href="/goals/healthGoals"><i class="fas fa-heartbeat"></i> Health Goals</a></li>
-        </ul>
-        
-        <!-- Info dropdown -->
-        <ul id="info-dropdown" class="dropdown-content">
-            <li><a href="/fitnessInfo"><i class="fas fa-dumbbell"></i> Fitness Info</a></li>
-            <li><a href="/nutritionalInfo"><i class="fas fa-carrot"></i> Nutritional Info</a></li>
-            <li><a href="/healthInfo"><i class="fas fa-medkit"></i> Health Info</a></li>
-        </ul>
-        
-        <!-- Mobile sidenav -->
-        <ul class="sidenav" id="mobile-demo">
-            <!-- Theme toggle for mobile -->
-            <li>
-                <div class="theme-switch-wrapper" style="padding: 0 32px; margin: 10px 0;">
-                    <span style="margin-right: 10px;">Dark Mode</span>
-                    <label class="theme-switch" for="theme-toggle-mobile">
-                        <input type="checkbox" id="theme-toggle-mobile" />
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            </li>
-            <li><div class="divider"></div></li>
-            <li><a href="/dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
-            <li><div class="divider"></div></li>
-            <li><a class="subheader"><i class="fas fa-bullseye"></i> Goals</a></li>
-            <li><a href="/goals/fitnessGoals"><i class="fas fa-running"></i> Fitness Goals</a></li>
-            <li><a href="/goals/nutritionGoals"><i class="fas fa-apple-alt"></i> Nutrition Goals</a></li>
-            <li><a href="/goals/healthGoals"><i class="fas fa-heartbeat"></i> Health Goals</a></li>
-            <li><div class="divider"></div></li>
-            <li><a class="subheader"><i class="fas fa-info-circle"></i> Information</a></li>
-            <li><a href="/fitnessInfo"><i class="fas fa-dumbbell"></i> Fitness Info</a></li>
-            <li><a href="/nutritionalInfo"><i class="fas fa-carrot"></i> Nutritional Info</a></li>
-            <li><a href="/healthInfo"><i class="fas fa-medkit"></i> Health Info</a></li>
-            <li><div class="divider"></div></li>
-            <li><a href="/goals"><i class="fas fa-trophy"></i> Achievements</a></li>
-            <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-        </ul>
+    </div>
+    
+    <!-- Progress indicator bar - shows at top of nav -->
+    <div class="nav-progress-container hide-on-small-only">
+        <div class="progress">
+            <div class="determinate" style="width: 75%"></div>
+        </div>
     </div>
 </nav>
+
+<!-- Goals dropdown -->
+<ul id="goals-dropdown" class="dropdown-content">
+    <li><a href="/goals/fitnessGoals"><i class="fas fa-running"></i> Fitness Goals</a></li>
+    <li><a href="/goals/nutritionGoals"><i class="fas fa-apple-alt"></i> Nutrition Goals</a></li>
+    <li><a href="/goals/healthGoals"><i class="fas fa-heartbeat"></i> Health Goals</a></li>
+</ul>
+
+<!-- Info dropdown -->
+<ul id="info-dropdown" class="dropdown-content">
+    <li><a href="/fitnessInfo"><i class="fas fa-dumbbell"></i> Fitness Info</a></li>
+    <li><a href="/nutritionalInfo"><i class="fas fa-carrot"></i> Nutritional Info</a></li>
+    <li><a href="/healthInfo"><i class="fas fa-medkit"></i> Health Info</a></li>
+</ul>
+
+<!-- Mobile sidenav -->
+<ul class="sidenav" id="mobile-demo">
+    <li>
+        <div class="user-view">
+            <div class="background" style="background-color: var(--primary-color)"></div>
+            <a href="/dashboard"><i class="fas fa-heartbeat fa-3x" style="color: white; margin: 20px 0;"></i></a>
+            <a href="/dashboard"><span class="white-text name">HealthTrack</span></a>
+            <a href="/profile"><span class="white-text email">Your Health Journey</span></a>
+        </div>
+    </li>
+    <!-- Theme toggle for mobile -->
+    <li>
+        <div class="theme-switch-wrapper" style="padding: 0 32px; margin: 10px 0;">
+            <span style="margin-right: 10px;">Dark Mode</span>
+            <label class="theme-switch" for="theme-toggle-mobile">
+                <input type="checkbox" id="theme-toggle-mobile" />
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </li>
+    <li><div class="divider"></div></li>
+    <li><a href="/dashboard" class="waves-effect"><i class="fas fa-home"></i> Dashboard</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader"><i class="fas fa-bullseye"></i> Goals</a></li>
+    <li><a href="/goals/fitnessGoals" class="waves-effect"><i class="fas fa-running"></i> Fitness Goals</a></li>
+    <li><a href="/goals/nutritionGoals" class="waves-effect"><i class="fas fa-apple-alt"></i> Nutrition Goals</a></li>
+    <li><a href="/goals/healthGoals" class="waves-effect"><i class="fas fa-heartbeat"></i> Health Goals</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader"><i class="fas fa-info-circle"></i> Information</a></li>
+    <li><a href="/fitnessInfo" class="waves-effect"><i class="fas fa-dumbbell"></i> Fitness Info</a></li>
+    <li><a href="/nutritionalInfo" class="waves-effect"><i class="fas fa-carrot"></i> Nutritional Info</a></li>
+    <li><a href="/healthInfo" class="waves-effect"><i class="fas fa-medkit"></i> Health Info</a></li>
+    <li><div class="divider"></div></li>
+    <li><a href="/goals" class="waves-effect"><i class="fas fa-trophy"></i> Achievements</a></li>
+    <li><a href="/auth/logout" class="waves-effect"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+</ul>
 
 <script>
     // Sync mobile and desktop theme toggles

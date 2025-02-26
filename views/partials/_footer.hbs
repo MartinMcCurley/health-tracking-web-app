@@ -1,25 +1,82 @@
-<footer class="page-footer" style="background-color: var(--primary-color);">
+<footer class="page-footer">
     <div class="container">
         <div class="row">
-            <div class="col l6 s12">
+            <div class="col l4 m6 s12">
                 <h5 class="white-text">HealthTrack</h5>
-                <p class="grey-text text-lighten-4">Track your health and fitness goals with our easy-to-use platform.</p>
+                <p class="grey-text text-lighten-4">Track your health and fitness goals with our easy-to-use platform. We help you stay motivated and achieve your wellness targets.</p>
+                <div class="social-icons">
+                    <a href="#!" class="white-text"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#!" class="white-text"><i class="fab fa-twitter"></i></a>
+                    <a href="#!" class="white-text"><i class="fab fa-instagram"></i></a>
+                    <a href="#!" class="white-text"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
-            <div class="col l4 offset-l2 s12">
+            <div class="col l2 m6 s12">
                 <h5 class="white-text">Quick Links</h5>
                 <ul>
                     <li><a class="grey-text text-lighten-3" href="/dashboard">Dashboard</a></li>
                     <li><a class="grey-text text-lighten-3" href="/goals">Achievements</a></li>
-                    <li><a class="grey-text text-lighten-3" href="/fitnessInfo">Fitness Information</a></li>
-                    <li><a class="grey-text text-lighten-3" href="/nutritionalInfo">Nutrition Information</a></li>
+                    <li><a class="grey-text text-lighten-3" href="/fitnessInfo">Fitness</a></li>
+                    <li><a class="grey-text text-lighten-3" href="/nutritionalInfo">Nutrition</a></li>
+                </ul>
+            </div>
+            <div class="col l3 m6 s12">
+                <h5 class="white-text">Resources</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">Blog</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Workout Plans</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Nutrition Guides</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Community</a></li>
+                </ul>
+            </div>
+            <div class="col l3 m6 s12">
+                <h5 class="white-text">Support</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">Help Center</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Privacy Policy</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Terms of Service</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="footer-copyright">
         <div class="container">
-            © 2023 HealthTrack
-            <a class="grey-text text-lighten-4 right" href="#!">Privacy Policy</a>
+            <div class="row">
+                <div class="col s12 m6">
+                    © 2023 HealthTrack. All rights reserved.
+                </div>
+                <div class="col s12 m6 right-align">
+                    <span class="hide-on-small-only">Made with <i class="fas fa-heart accent-text"></i> for a healthier you</span>
+                </div>
+            </div>
         </div>
     </div>
-</footer> 
+</footer>
+
+<style>
+    .social-icons {
+        margin-top: 15px;
+    }
+    .social-icons a {
+        display: inline-block;
+        margin-right: 15px;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }
+    .social-icons a:hover {
+        transform: translateY(-3px);
+    }
+    .accent-text {
+        color: var(--accent-color);
+    }
+    .right-align {
+        text-align: right;
+    }
+    @media only screen and (max-width: 600px) {
+        .right-align {
+            text-align: center;
+            margin-top: 10px;
+        }
+    }
+</style> 
